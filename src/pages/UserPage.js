@@ -1,6 +1,5 @@
 import React, { useEffect, useState,  } from 'react'
 import {useParams} from "react-router-dom";
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import Post from '../components/post/Post';
 import StaticProfile from '../components/profile/StaticProfile';
@@ -10,19 +9,21 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from '../redux/actions/dataActions';
 
 
 
-function UserPage(props) {
+export default function UserPage(props) {
     let {userHandle} = useParams();
-    const { user, posts, loading } = props.data
+    const dispatch = useDispatch();
+    const { user, posts, loading } = useSelector((state) => state.data);
     const [profile, setProfile] = useState({})
     const [userPosts, setPosts] = useState([])
 
+    //TODO: review this function
     useEffect(() => {
-        props.getUserProfile(userHandle)
+        dispatch(getUserProfile(userHandle))
         console.log(userHandle)
         
         axios.get(`/user/${userHandle}`)
@@ -35,7 +36,7 @@ function UserPage(props) {
             })
         console.log(user)
         console.log(posts)
-    }, [userHandle])
+    }, [dispatch, userHandle])
     
     if (loading) {
         return(
@@ -74,13 +75,4 @@ function UserPage(props) {
     )
 }
 
-UserPage.propTypes = {
-    getUserProfile: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    data: state.data,
-})
-
-export default connect(mapStateToProps, {getUserProfile})(UserPage)
+//export default connect(mapStateToProps, {getUserProfile})(UserPage)

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import AppIcon from '../images/argupediaLogo.png'
 
 //MUI imports 
@@ -12,14 +11,17 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions/userActions';
 
 
 const styles = (theme) => ({...theme.loginSignupStyle})
 
 function Login(props) {
-    const { classes, UI: { loading, uiErrors } } = props
+    const { classes } = props
+    const dispatch = useDispatch();
+    const { UI: { loading, uiErrors } } = useSelector((state) => state);
+    
     const [errors, setErrors] = useState([])
     const [userEmail, setEmail] = useState("")
     const [userPassword, setPassword] = useState("")
@@ -46,8 +48,7 @@ function Login(props) {
             email: userEmail,
             password: userPassword
         }
-        console.log("form submitted");
-        props.loginUser(userData, history)
+        dispatch(loginUser(userData, history))
     }
     
     return (
@@ -107,20 +108,5 @@ function Login(props) {
         </Grid>
     )
 }
-Login.propTypes = {
-    classes: PropTypes.object.isRequired,
-    loginUser: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    UI: PropTypes.object.isRequired,
-}
 
-const mapStateToProps = (state) => ({
-    user: state.user,
-    UI: state.UI
-})
-
-const mapActionsToProps = {
-    loginUser
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Login))
+export default withStyles(styles)(Login)

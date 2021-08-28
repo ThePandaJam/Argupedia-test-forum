@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import AppIcon from '../images/argupediaLogo.png'
 
 //MUI imports 
@@ -11,13 +10,16 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 //redux 
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signupUser } from '../redux/actions/userActions';
 
 const styles = (theme) => ({...theme.loginSignupStyle})
 
 function SignUp(props) {
-    const {classes, UI: { loading, uiErrors } } = props
+    const { classes } = props
+    const dispatch = useDispatch();
+    const { UI: { loading, uiErrors } } = useSelector((state) => state);
+
     const [errors, setErrors] = useState([])
     const [userEmail, setEmail] = useState("")
     const [userPassword, setPassword] = useState("")
@@ -53,7 +55,7 @@ function SignUp(props) {
             handle: userHandle
         }
         console.log("form submitted");
-        props.signupUser(newUserData, history);
+        dispatch(signupUser(newUserData, history));
     }
     
     return (
@@ -135,16 +137,5 @@ function SignUp(props) {
         </Grid>
     )
 }
-SignUp.propTypes = {
-    classes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    UI: PropTypes.object.isRequired,
-    signupUser: PropTypes.func.isRequired
-}
 
-const mapStateToProps = (state) => ({
-    user: state.user,
-    UI: state.UI
-})
-
-export default connect(mapStateToProps, { signupUser })(withStyles(styles)(SignUp))
+export default withStyles(styles)(SignUp)
