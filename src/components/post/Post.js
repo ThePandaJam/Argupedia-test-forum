@@ -193,7 +193,7 @@ function Post(props) {
                     <ChatIcon color="primary" />
                 </MyButton>
                 <span>{argumentCount} arguments</span>
-                <PostDialog currentPostId={postId} openDialog={props.openDialog}/>
+                <PostDialog currentPostId={postId} opUserHandle={userHandle} openDialog={props.openDialog}/>
             </CardContent>
         </Card>
     )
