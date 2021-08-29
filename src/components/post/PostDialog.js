@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs';
 import MyButton from '../../util/MyButton';
@@ -64,7 +64,8 @@ function PostDialog(props) {
     const dispatch = useDispatch();
     const { 
         classes,
-        currentPostId
+        currentPostId,
+        openDialog
     } = props
     const { postId, body, createdAt, userScore, argumentCount, userImage, userHandle, comments } = useSelector((state) => state.data.post);
     const { UI: { loading } } = useSelector((state) => state);
@@ -79,6 +80,12 @@ function PostDialog(props) {
         setOpen(false)
         dispatch(clearErrors())
     }
+
+    useEffect(() => {
+        if(openDialog){
+            return handleOpen()
+        }
+    }, [])
 
     return (
         <Fragment>

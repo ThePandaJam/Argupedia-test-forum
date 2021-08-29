@@ -56,6 +56,7 @@ function Post(props) {
     } = useSelector((state) => state);
     const { 
         classes,
+        //openDialog,
         post: {
             body, 
             createdAt, 
@@ -192,7 +193,7 @@ function Post(props) {
                     <ChatIcon color="primary" />
                 </MyButton>
                 <span>{argumentCount} arguments</span>
-                <PostDialog currentPostId={postId}/>
+                <PostDialog currentPostId={postId} openDialog={props.openDialog}/>
             </CardContent>
         </Card>
     )

@@ -34,7 +34,7 @@ export default function dataReducer(state = initialState, action){
             return{
                 ...state,
                 post: action.payload,
-                //loading: false
+                loading: false
             };
         case UPVOTE_POST:
         case UNUPVOTE_POST:
