@@ -28,8 +28,6 @@ export default function UserPage(props) {
             .catch(err => {
                 console.log(err);
             })
-        console.log(profile)
-        console.log(userPosts)
     }, [dispatch, userHandle])
     
     if (loading) {

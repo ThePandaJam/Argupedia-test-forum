@@ -14,7 +14,7 @@ import Notifications from "@material-ui/icons/Notifications"
 
 
 export default function Navbar() {
-    const { authenticated } = useSelector((state) => state.user.authenticated);
+    const { authenticated } = useSelector((state) => state.user);
     return (
         <AppBar>
             <Toolbar className="nav-container">
