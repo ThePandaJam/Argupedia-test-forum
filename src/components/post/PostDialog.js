@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import MyButton from '../../util/MyButton';
 import Comments from './Comments';
@@ -20,7 +19,7 @@ import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
 
 //redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPost, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
@@ -62,21 +61,23 @@ const styles = (theme) => ({
 })
 
 function PostDialog(props) {
+    const dispatch = useDispatch();
     const { 
-        classes, 
-        UI: { loading },
-        post: {postId, body, createdAt, userScore, argumentCount, userImage, userHandle, comments }
+        classes,
+        currentPostId
     } = props
+    const { postId, body, createdAt, userScore, argumentCount, userImage, userHandle, comments } = useSelector((state) => state.data.post);
+    const { UI: { loading } } = useSelector((state) => state);
     const [open, setOpen] = useState(false);
     
     function handleOpen(){
         setOpen(true)
-        props.getPost(props.postId)
+        dispatch(getPost(currentPostId))
     }
 
     function handleClose(){
         setOpen(false)
-        props.clearErrors()
+        dispatch(clearErrors())
     }
 
     return (
@@ -143,23 +144,23 @@ function PostDialog(props) {
 }
 
 
-PostDialog.propTypes = {
-    getPost: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
-    postId: PropTypes.string.isRequired,
-    userHandle: PropTypes.string.isRequired,
-    post: PropTypes.object.isRequired,
-    UI: PropTypes.object.isRequired
-}
+// PostDialog.propTypes = {
+//     getPost: PropTypes.func.isRequired,
+//     clearErrors: PropTypes.func.isRequired,
+//     postId: PropTypes.string.isRequired,
+//     userHandle: PropTypes.string.isRequired,
+//     post: PropTypes.object.isRequired,
+//     UI: PropTypes.object.isRequired
+// }
 
-const mapStateToProps = (state) => ({
-    post: state.data.post,
-    UI: state.UI
-})
+// const mapStateToProps = (state) => ({
+//     post: state.data.post,
+//     UI: state.UI
+// })
 
-const mapAcitonsToProps = {
-    getPost,
-    clearErrors
-}
+// const mapAcitonsToProps = {
+//     getPost,
+//     clearErrors
+// }
 
-export default connect(mapStateToProps, mapAcitonsToProps)(withStyles(styles)(PostDialog))
+export default withStyles(styles)(PostDialog)

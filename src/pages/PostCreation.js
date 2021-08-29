@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import AppIcon from '../images/argupediaLogo.png'
 
 //MUI imports 
@@ -12,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../redux/actions/dataActions';
 
 
@@ -27,7 +26,9 @@ const styles = (theme) => ({
 })
 
 function PostCreation(props) {
-    const { classes, UI: { loading, uiErrors } } = props
+    const { classes } = props
+    const dispatch = useDispatch();
+    const { UI: { loading, uiErrors } } = useSelector((state) => state);
     const [errors, setErrors] = useState([])
     //change to set title
     const [body, setBody] = useState("")
@@ -53,8 +54,7 @@ function PostCreation(props) {
         const postData = {
             body: body
         }
-        console.log("form submitted");
-        props.createPost(postData, history)
+        dispatch(createPost(postData, history))
     }
     
     return (
@@ -106,14 +106,5 @@ function PostCreation(props) {
         </Grid>
     )
 }
-PostCreation.propTypes = {
-    createPost: PropTypes.func.isRequired,
-    UI: PropTypes.object.isRequired
-}
 
-const mapStateToProps = (state) => ({
-    user: state.user,
-    UI: state.UI
-})
-
-export default connect(mapStateToProps, {createPost})(withStyles(styles)(PostCreation))
+export default withStyles(styles)(PostCreation)

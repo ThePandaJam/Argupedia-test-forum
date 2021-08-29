@@ -1,6 +1,5 @@
 import React, { useEffect, useState,  } from 'react'
 import {useParams} from "react-router-dom";
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import Post from '../components/post/Post';
 import StaticProfile from '../components/profile/StaticProfile';
@@ -10,21 +9,17 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
-import { connect } from 'react-redux';
-import { getUserProfile } from '../redux/actions/dataActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-
-
-function UserPage(props) {
+export default function UserPage(props) {
     let {userHandle} = useParams();
-    const { user, posts, loading } = props.data
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.data);
     const [profile, setProfile] = useState({})
     const [userPosts, setPosts] = useState([])
 
-    useEffect(() => {
-        props.getUserProfile(userHandle)
-        console.log(userHandle)
-        
+    //TODO: review this function
+    useEffect(() => {        
         axios.get(`/user/${userHandle}`)
             .then(res => {
                 setProfile(res.data.user);
@@ -33,9 +28,9 @@ function UserPage(props) {
             .catch(err => {
                 console.log(err);
             })
-        console.log(user)
-        console.log(posts)
-    }, [userHandle])
+        console.log(profile)
+        console.log(userPosts)
+    }, [dispatch, userHandle])
     
     if (loading) {
         return(
@@ -49,7 +44,7 @@ function UserPage(props) {
     }
     return (
         <Grid container spacing={10}>
-            { posts.length === 0
+            { userPosts.length === 0
                 ? (
                     <Grid item sm={8} xs={12}>
                         <p>No posts from this user</p>
@@ -64,23 +59,14 @@ function UserPage(props) {
                 )
             }
             <Grid item sm={4} xs={12}>
-                { user === null
+                { profile === {}
                 ? (<p>Loading profile...</p>)
-                : (<StaticProfile user={profile} />)
+                : (
+                    <StaticProfile user={profile} />
+                    )
                 }
                 
             </Grid>
         </Grid>
     )
 }
-
-UserPage.propTypes = {
-    getUserProfile: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    data: state.data,
-})
-
-export default connect(mapStateToProps, {getUserProfile})(UserPage)

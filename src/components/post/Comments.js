@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
+
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,7 +24,8 @@ const styles = (theme) => ({
 
 
 function Comments(props) {
-    const { classes, comments } = props
+    const { classes } = props
+    const { comments } = useSelector((state) => state.data.post);
     return (
         <Grid container>
             {comments.map((comment, index) => {
@@ -61,10 +63,6 @@ function Comments(props) {
             })}
         </Grid>
     )
-}
-
-Comments.propTypes = {
-    comments: PropTypes.array.isRequired
 }
 
 export default (withStyles(styles)(Comments))

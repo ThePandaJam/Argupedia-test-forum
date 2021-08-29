@@ -2,13 +2,12 @@ import React, { useEffect, useState }from 'react'
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
-import PropTypes from 'prop-types'
 import MyButton from '../../util/MyButton';
 import DeletePostButton from './DeletePostButton';
 import PostDialog from './PostDialog';
 
 //redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { upvotePost, unUpvotePost, downvotePost, unDownvotePost } from '../../redux/actions/dataActions'; 
 
 //icons
@@ -44,19 +43,8 @@ const styles = {
 }
 
 function Post(props) {
-    const [upvoted, setUpvoted] = useState(false);
-    const [downvoted, setDownvoted] = useState(false);
-
-    const { 
-        classes, 
-        post : {
-            body, 
-            createdAt, 
-            userImage, 
-            userHandle, 
-            postId, 
-            userScore, 
-            argumentCount},
+    const dispatch = useDispatch()
+    const {
         user: {
             authenticated,
             credentials :{
@@ -65,53 +53,83 @@ function Post(props) {
             upvotes,
             downvotes
         },
-        } = props
+    } = useSelector((state) => state);
+    const { 
+        classes,
+        post: {
+            body, 
+            createdAt, 
+            userImage, 
+            userHandle, 
+            postId, 
+            userScore, 
+            argumentCount},
+    } = props
+
+    const [upvoted, setUpvoted] = useState(upvotedPost());
+    const [downvoted, setDownvoted] = useState(downvotedPost());
     dayjs.extend(relativeTime)
 
     function upvotedPost() {
         if(upvotes && upvotes.find(upvote => upvote.postId === postId)){
-            setUpvoted(true)
+            //setUpvoted(true)
+            return true
         } else {
-            setUpvoted(false)
+            //setUpvoted(false)
+            return false
         }
     };
 
     function downvotedPost() {
         if(downvotes && downvotes.find(downvote => downvote.postId === postId)){
-            setDownvoted(true) 
+            //setDownvoted(true) 
+            return true
         } else {
-            setDownvoted(false) 
+            //setDownvoted(false) 
+            return false
         }
     };
     //sort out the logic where if post is downvoted, undownvote post and only then upvote it
-    function upvotePost(){
-        if(downvotedPost()){
-            props.unDownvotePost(postId)
+    //upvote function
+    function upvoteThisPost(){
+        //if the post already has a downvote, remove downvote and add upvote
+        if(downvoted){
+            unDownvoteThisPost()
         }
-        props.upvotePost(postId)
-    }
-    function unUpvotePost(){
-        props.unUpvotePost(postId)
+        //add upvote in the db
+        dispatch(upvotePost(postId))
+        //add upvote in the ui
+        setUpvoted(true)
     }
 
-    //sort out the logic where if a post is upvoted, unupvote it and only then downvote it
-    function downvotePost(){
-        if(upvotedPost()){
-            props.unUpvotePost(postId)
-        }
-        props.downvotePost(postId)
-    }
-    function unDownvotePost(){
-        props.unDownvotePost(postId)
+    //remove upvote funciton
+    function unUpvoteThisPost(){
+        //remove upvote in the db
+        dispatch(unUpvotePost(postId))
+        //remove upvote in the ui
+        setUpvoted(false)
     }
 
-    useEffect(() => {
-        upvotedPost()
-    }, [])
+    //downvote function
+    function downvoteThisPost(){
+        //if the post already has an upvote, remove upvote and add downvote
+        if(upvoted){
+            //run remove upvote function
+            unUpvoteThisPost()
+        }
+        //add downvote in the db
+        dispatch(downvotePost(postId))
+        //add downvote in the ui
+        setDownvoted(true)
+    }
     
-    useEffect(() => {
-        downvotedPost()
-    }, [])
+    //remove downvote function
+    function unDownvoteThisPost(){
+        //remove downvote in the db
+        dispatch(unDownvotePost(postId))
+        //remove downvote in the UI
+        setDownvoted(false)
+    }
         
     return (
         <Card className={classes.card}>
@@ -135,12 +153,12 @@ function Post(props) {
                     : (
                         upvoted
                             ? (
-                                <MyButton tip="Undo upvote" onClick={unUpvotePost}>
+                                <MyButton tip="Undo upvote" onClick={unUpvoteThisPost}>
                                     <ThumbUpIcon color="primary"/>
                                 </MyButton>
                             ) 
                             : (
-                                <MyButton tip="Upvote" onClick={upvotePost}>
+                                <MyButton tip="Upvote" onClick={upvoteThisPost}>
                                     <ThumbUpOutlinedIcon color="primary"/>
                                 </MyButton>
                             )
@@ -159,12 +177,12 @@ function Post(props) {
                     : (
                         downvoted 
                             ? (
-                                <MyButton tip="Undo downvote" onClick={unDownvotePost}>
+                                <MyButton tip="Undo downvote" onClick={unDownvoteThisPost}>
                                     <ThumbDownIcon color="primary"/>
                                 </MyButton>
                             ) 
                             : (
-                                <MyButton tip="Downvote" onClick={downvotePost}>
+                                <MyButton tip="Downvote" onClick={downvoteThisPost}>
                                     <ThumbDownOutlinedIcon color="primary"/>
                                 </MyButton>
                             )
@@ -174,31 +192,10 @@ function Post(props) {
                     <ChatIcon color="primary" />
                 </MyButton>
                 <span>{argumentCount} arguments</span>
-                <PostDialog postId={postId} userHandle={userHandle}/>
+                <PostDialog currentPostId={postId}/>
             </CardContent>
         </Card>
     )
 }
 
-Post.propTypes = {
-    upvotePost: PropTypes.func.isRequired,
-    unUpvotePost: PropTypes.func.isRequired,
-    downvotePost: PropTypes.func.isRequired,
-    unDownvotePost: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    post: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-    user: state.user
-})
-
-const mapActionsToProps = {
-    upvotePost,
-    unUpvotePost,
-    downvotePost,
-    unDownvotePost
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Post))
+export default withStyles(styles)(Post)

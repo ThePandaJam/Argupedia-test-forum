@@ -1,12 +1,11 @@
 import React, {Fragment} from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import EditDetails from './EditDetails'
 import MyButton from '../../util/MyButton'
 
 //redux
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser, uploadImage } from '../../redux/actions/userActions'
 
 //MUI
@@ -22,7 +21,6 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-
 
 
 const styles = (theme) => ({
@@ -74,21 +72,22 @@ const styles = (theme) => ({
   });
 
 function Profile(props) {
+    const dispatch = useDispatch();
+    const {classes} = props;
     const { 
-        classes, 
         user: { 
             credentials: { handle, createdAt, imageUrl, bio, website, location},
             loading,
             authenticated
         } 
-    } = props
+    } = useSelector((state) => state);
 
     function handleImageChange(e) {
         const image = e.target.files[0];
         //send to server
         const formData = new FormData();
         formData.append('image', image, image.name);
-        props.uploadImage(formData);
+        dispatch(uploadImage(formData));
     }
 
     function handleEditPicture(){
@@ -96,7 +95,7 @@ function Profile(props) {
         fileInput.click();
     }
     function handleLogout(){
-        props.logoutUser();
+        dispatch(logoutUser());
     }
 
     return (
@@ -153,7 +152,7 @@ function Profile(props) {
                     :(
                         <Fragment>
                             <Typography variant="body2" align="center">
-                                No profile found. Please log in again.
+                                Experience Argupedia to its fullest potential with an account
                             </Typography>
                             <div className={classes.buttons}>
                                 <Button variant="contained" color="primary" component={Link} to="/login">
@@ -173,17 +172,4 @@ function Profile(props) {
     
 }
 
-const mapStateToProps = (state) => ({
-    user: state.user
-})
-
-const mapActionsToProps = { logoutUser, uploadImage };
-
-Profile.propTypes ={
-    user: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired,
-    logoutUser: PropTypes.func.isRequired,
-    uploadImage: PropTypes.func.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Profile))
+export default withStyles(styles)(Profile)

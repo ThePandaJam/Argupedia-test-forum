@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react'
-import PropTypes from 'prop-types'
 import MyButton from '../../util/MyButton';
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -11,7 +10,7 @@ import Button from '@material-ui/core/Button';
 //icons
 import DeleteOutline from "@material-ui/icons/DeleteOutline"
 //redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deletePost } from '../../redux/actions/dataActions'
 
 const styles = {
@@ -24,7 +23,9 @@ const styles = {
 }
 
 function DeletePostButton(props) {
+    const dispatch = useDispatch();
     const { classes } = props
+    const { postId } = useSelector((state) => state.data.post);
     const [open, setOpen] = useState(false);
     function handleOpen(){
         setOpen(true)
@@ -33,8 +34,8 @@ function DeletePostButton(props) {
     function handleClose(){
         setOpen(false)
     }
-    function deletePost(){
-        props.deletePost(props.postId)
+    function deleteThisPost(){
+        dispatch(deletePost(postId))
         setOpen(false)
     }
     return (
@@ -57,7 +58,7 @@ function DeletePostButton(props) {
                         <Button onClick={handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={deletePost} color="secondary">
+                        <Button onClick={deleteThisPost} color="secondary">
                             Delete
                         </Button>
                     </DialogActions>
@@ -66,10 +67,4 @@ function DeletePostButton(props) {
     )
 }
 
-DeletePostButton.propTypes= {
-    deletePost: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
-    postId: PropTypes.string.isRequired
-}
-
-export default connect(null, {deletePost})(withStyles(styles)(DeletePostButton))
+export default withStyles(styles)(DeletePostButton)

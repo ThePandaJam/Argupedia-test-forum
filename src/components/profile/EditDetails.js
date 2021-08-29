@@ -1,5 +1,4 @@
 import React, {Fragment, useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import MyButton from '../../util/MyButton';
 //MUI
 import withStyles from '@material-ui/styles/withStyles'
@@ -14,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 
 //redux
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { editUserDetails } from '../../redux/actions/userActions'
 
 const styles = (theme) => ({
@@ -26,7 +25,10 @@ const styles = (theme) => ({
 
 
 function EditDetails(props) {
-    const { credentials, classes } = props
+    const dispatch = useDispatch()
+    const {classes} = props
+    const { credentials } = useSelector((state) => state.user);
+
     const [bio, setBio] = useState('');
     const [website, setWebsite] = useState('');
     const [location, setLocation] = useState('');
@@ -54,7 +56,7 @@ function EditDetails(props) {
     
     function handleOpen(){
             setOpen(true)
-            mapUserDetailsToState(props.credentials)
+            mapUserDetailsToState(credentials)
     }
 
     function handleClose(){
@@ -81,7 +83,7 @@ function EditDetails(props) {
             location: location
         }
         console.log("details updated");
-        props.editUserDetails(userDetails)
+        dispatch(editUserDetails(userDetails));
         handleClose();
     }
 
@@ -147,13 +149,4 @@ function EditDetails(props) {
     )
 }
 
-EditDetails.propTypes = {
-    editUserDetails: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    credentials: state.user.credentials
-})
-
-export default  connect(mapStateToProps, { editUserDetails })(withStyles(styles)(EditDetails))
+export default withStyles(styles)(EditDetails);

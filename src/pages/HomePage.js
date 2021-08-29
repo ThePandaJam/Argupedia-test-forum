@@ -1,21 +1,21 @@
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../redux/actions/dataActions';
-import PropTypes from 'prop-types'
 
 //components
 import Post from '../components/post/Post';
 import Profile from '../components/profile/Profile';
 
-function HomePage(props) {
-    const { posts, loading } = props.data
+export default function HomePage(props) {    
+    const dispatch = useDispatch();
+    const { posts, loading } = useSelector((state) => state.data);
 
     useEffect(() => {
-        const unsubscribe = props.getPosts();
-        return unsubscribe
-    }, [])
+        dispatch(getPosts());
+    }, [dispatch])
+
 //TODO handle real-time updating of the database
     
     if (loading) {
@@ -41,13 +41,3 @@ function HomePage(props) {
         </Grid>
     )
 }
-HomePage.propTypes = {
-    getPosts: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-    data: state.data
-})
-
-export default connect(mapStateToProps, { getPosts})(HomePage);
