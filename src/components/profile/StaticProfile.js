@@ -1,11 +1,10 @@
 import React, {Fragment} from 'react'
-import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 //MUI imports
 import withStyles from '@material-ui/styles/withStyles'
-import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
@@ -49,9 +48,11 @@ const styles = (theme) => ({
 
 function StaticProfile(props) {
     const { 
-        classes, 
-        user: { handle, createdAt, imageUrl, bio, website, location }
-    } = props
+      classes,
+      user: { handle, createdAt, imageUrl, bio, website, location }
+
+     } = props;
+    
     return (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
@@ -88,11 +89,6 @@ function StaticProfile(props) {
             </div>
         </Paper>
     )
-}
-
-StaticProfile.propTypes = {
-    profile: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(StaticProfile)

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+//import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MyButton from '../../util/MyButton';
 //MUI
 import AppBar from "@material-ui/core/AppBar"
@@ -13,11 +13,8 @@ import HomeIcon from "@material-ui/icons/Home"
 import Notifications from "@material-ui/icons/Notifications"
 
 
-
-
-
-function Navbar(props) {
-    const {authenticated} = props
+export default function Navbar() {
+    const { authenticated } = useSelector((state) => state.user.authenticated);
     return (
         <AppBar>
             <Toolbar className="nav-container">
@@ -49,15 +46,3 @@ function Navbar(props) {
         </AppBar>
     )
 }
-
-Navbar.propTypes = {
-    authenticated: PropTypes.bool.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    authenticated: state.user.authenticated
-})
-
-
-
-export default connect(mapStateToProps)(Navbar)

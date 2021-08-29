@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import PropTypes from 'prop-types';
 
 //MUI imports
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,7 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 //redux imports
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { submmitComment } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
@@ -17,7 +17,12 @@ const styles = (theme) => ({
 })
 
 function CommentForm(props) {
-    const { classes, authenticated, UI: { loading, uiErrors } } = props
+    const dispatch = useDispatch()
+    const { classes } = props
+    const {  loading, uiErrors } = useSelector((state) => state.UI);
+    const { authenticated } = useSelector((state) => state.user);
+    const { postId } = useSelector((state) => state.data.post);
+
     const [errors, setErrors] = useState([])
     const [body, setBody] = useState("")
 
@@ -39,8 +44,7 @@ function CommentForm(props) {
         const commentData = {
             body: body
         }
-        console.log("form submitted");
-        props.submmitComment(props.postId, commentData)
+        dispatch(submmitComment(postId, commentData))
         setBody("")
     }
 
@@ -81,17 +85,4 @@ function CommentForm(props) {
     )
 }
 
-CommentForm.propTypes = {
-    submmitComment: PropTypes.func.isRequired,
-    UI: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired,
-    postId: PropTypes.string.isRequired,
-    authenticated: PropTypes.bool.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    authenticated: state.user.authenticated,
-    UI: state.UI
-})
-
-export default connect(mapStateToProps, {submmitComment})(withStyles(styles)(CommentForm))
+export default withStyles(styles)(CommentForm)
