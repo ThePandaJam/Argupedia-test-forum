@@ -83,6 +83,7 @@ function PostDialog(props) {
     const [open, setOpen] = useState(false);
     const [oldPath, setOldPath] = useState("")
     const [newPath, setNewPath] = useState("")
+    const [postDataReceived, setPostDataReceived] = useState(false)
     
     function handleOpen(){
         const oldPathName = window.location.pathname
@@ -103,14 +104,15 @@ function PostDialog(props) {
     }
 
     function handleClose(){
-        
+        setPostDataReceived(false)
         setOpen(false)
         dispatch(clearErrors())
         window.history.pushState(null, null, oldPath);
     }
 
     useEffect(() => {
-        if(openDialog){
+        if(openDialog && !postDataReceived){
+            setPostDataReceived(true)
             return handleOpen()
         }
     }, [])

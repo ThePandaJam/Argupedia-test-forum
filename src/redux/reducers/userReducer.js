@@ -6,7 +6,8 @@ import {
     UPVOTE_POST,
     DOWNVOTE_POST,
     UNUPVOTE_POST,
-    UNDOWNVOTE_POST
+    UNDOWNVOTE_POST,
+    MARK_NOTIFICATIONS_READ
 } from "../reducers/types";
 
 const initialState = {
@@ -73,6 +74,11 @@ export default function userReducer( state = initialState, action){
                 downvotes: state.downvotes.filter(
                     (downvote) => downvote.postId !== action.payload.postId
                 )
+            }
+        case MARK_NOTIFICATIONS_READ:
+            state.notifications.forEach((notif) => (notif.read = true));
+            return{
+                ...state
             }
         default:
             return state;

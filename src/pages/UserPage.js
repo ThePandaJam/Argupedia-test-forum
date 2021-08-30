@@ -42,11 +42,7 @@ export default function UserPage(props) {
         }
     }, [userHandle, postId])
     
-    // if (loading) {
-    //     return(
-            
-    //     )
-    // }
+
     return (
         loading 
             ? (
@@ -74,14 +70,11 @@ export default function UserPage(props) {
                             ) 
                             : (
                                 <Grid item sm={8} xs={12}>
-                                    {/* <p>there is a post id param of {postIdParam}</p> */}
                                     {userPosts.map((post) => {
                                         if(post.postId !== postIdParam){
-                                            //return <p>return posts</p>
                                             return <Post key={post.postId} post={post} />
                                         }
                                         else {
-                                            //return <p>post dialog for post {postIdParam}</p>
                                             return <Post key={post.postId} post={post} openDialog/>
                                         }
                                     })}
