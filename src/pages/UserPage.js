@@ -1,5 +1,5 @@
-import React, { useEffect, useState,  } from 'react'
-import {useParams, useRouteMatch} from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import {useParams } from "react-router-dom";
 import axios from 'axios';
 import Post from '../components/post/Post';
 import StaticProfile from '../components/profile/StaticProfile';
@@ -8,14 +8,8 @@ import StaticProfile from '../components/profile/StaticProfile';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-//redux
-import { useDispatch, useSelector } from 'react-redux';
-
 export default function UserPage(props) {
     let {userHandle, postId} = useParams();
-    //let params = useParams();
-    const dispatch = useDispatch();
-    //const { loading } = useSelector((state) => state.data);
     const [loading, setLoading] = useState(true)
     const [profile, setProfile] = useState({})
     const [userPosts, setPosts] = useState([])

@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react'
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux';
 
 //MUI imports
 import withStyles from '@material-ui/styles/withStyles'
