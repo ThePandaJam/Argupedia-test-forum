@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs';
 import MyButton from '../../util/MyButton';
@@ -64,21 +64,55 @@ function PostDialog(props) {
     const dispatch = useDispatch();
     const { 
         classes,
-        currentPostId
+        currentPostId,
+        opUserHandle,
+        openDialog
     } = props
-    const { postId, body, createdAt, userScore, argumentCount, userImage, userHandle, comments } = useSelector((state) => state.data.post);
+    const { 
+        postId, 
+        body, 
+        createdAt,
+        userScore, 
+        argumentCount, 
+        userImage, 
+        userHandle, 
+        comments
+    } = useSelector((state) => state.data.post);
+    
     const { UI: { loading } } = useSelector((state) => state);
     const [open, setOpen] = useState(false);
+    const [oldPath, setOldPath] = useState("")
+    const [postDataReceived, setPostDataReceived] = useState(false)
     
     function handleOpen(){
+        const oldPathName = window.location.pathname
+        const newPathName = `/users/${opUserHandle}/post/${currentPostId}`
+        
+        if(oldPathName === newPathName){
+            setOldPath(`/users/${opUserHandle}`);
+        } else {
+            setOldPath(oldPathName);
+
+        }
+
         setOpen(true)
         dispatch(getPost(currentPostId))
+        window.history.pushState(null, null, newPathName);
     }
 
     function handleClose(){
+        setPostDataReceived(false)
         setOpen(false)
         dispatch(clearErrors())
+        window.history.pushState(null, null, oldPath);
     }
+
+    useEffect(() => {
+        if(openDialog && !postDataReceived){
+            setPostDataReceived(true)
+            return handleOpen()
+        }
+    }, [])
 
     return (
         <Fragment>

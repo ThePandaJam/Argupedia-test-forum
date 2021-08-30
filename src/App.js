@@ -47,7 +47,8 @@ function App() {
               <AuthRoute path="/signup" component={SignUp}/>
               <AuthRoute path="/login" component={Login}/>
               <Route path="/createPost" component={PostCreation}/>
-              <Route path="/users/:userHandle" component={UserPage} />
+              <Route exact path="/users/:userHandle" component={UserPage} />
+              <Route exact path="/users/:userHandle/post/:postId" component={UserPage} />
             </Switch>
           </div>
         </Router>

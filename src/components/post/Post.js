@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from 'react'
+import React, { useState }from 'react'
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -56,6 +56,7 @@ function Post(props) {
     } = useSelector((state) => state);
     const { 
         classes,
+        //openDialog,
         post: {
             body, 
             createdAt, 
@@ -192,7 +193,7 @@ function Post(props) {
                     <ChatIcon color="primary" />
                 </MyButton>
                 <span>{argumentCount} arguments</span>
-                <PostDialog currentPostId={postId}/>
+                <PostDialog currentPostId={postId} opUserHandle={userHandle} openDialog={props.openDialog}/>
             </CardContent>
         </Card>
     )
