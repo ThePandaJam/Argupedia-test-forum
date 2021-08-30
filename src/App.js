@@ -22,6 +22,8 @@ import axios from 'axios';
 
 const theme = createTheme(themeFile);
 
+axios.defaults.baseURL = 'https://europe-west1-test-forum-995a7.cloudfunctions.net/api';
+
 const token = localStorage.FBIdToken;
 if(token){
   const decodedToken = jwtDecode(token);
