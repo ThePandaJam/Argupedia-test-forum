@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 
 //Icons
 import AddIcon from "@material-ui/icons/Add"
-import HomeIcon from "@material-ui/icons/Home"
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
 const styles= (theme) => ({
     ...theme.loginSignupStyle,
@@ -50,8 +50,8 @@ function Navbar(props) {
                         </Link>
                         
                         <Link to="/">
-                            <MyButton tip="Home">
-                                <HomeIcon/>
+                            <MyButton tip="Learn">
+                                <ImportContactsIcon/>
                             </MyButton>
                         </Link>
                         <Notifications/>
