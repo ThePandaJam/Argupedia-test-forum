@@ -1,3 +1,4 @@
+//based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/redux/reducers/dataReducer.js
 import { 
     SET_POSTS, 
     SET_POST, 
@@ -9,7 +10,7 @@ import {
     DELETE_POST,
     CREATE_POST,
     SUBMIT_COMMENT
-} from "./types";
+} from "../types";
 
 const initialState = {
     posts: [],

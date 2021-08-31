@@ -1,3 +1,4 @@
+// based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/layout/Notifications.js
 import React, { useState, Fragment }from 'react'
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';

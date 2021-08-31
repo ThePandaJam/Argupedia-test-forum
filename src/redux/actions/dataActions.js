@@ -1,3 +1,4 @@
+// based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/redux/actions/dataActions.js
 import {
     SET_POSTS,
     SET_POST, 
@@ -13,7 +14,7 @@ import {
     SET_ERRORS, 
     CLEAR_ERRORS,
     SUBMIT_COMMENT
-} from '../reducers/types';
+} from '../types';
 import axios from 'axios';
 
 //get all posts

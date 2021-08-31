@@ -1,3 +1,4 @@
+//based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/profile/StaticProfile.js
 import React, {Fragment} from 'react'
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom'

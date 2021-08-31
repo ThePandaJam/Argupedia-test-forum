@@ -1,3 +1,4 @@
+// based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/CommentForm.js
 import React, { Fragment, useState, useEffect } from 'react'
 
 //MUI imports

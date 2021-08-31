@@ -1,3 +1,4 @@
+// based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/PostScream.js
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import AppIcon from '../images/argupediaLogo.png'

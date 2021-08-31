@@ -1,3 +1,4 @@
+//based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/profile/EditDetails.js
 import React, {Fragment, useState, useEffect } from 'react'
 import MyButton from '../../util/MyButton';
 //MUI
