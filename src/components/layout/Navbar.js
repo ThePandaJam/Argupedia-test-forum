@@ -4,22 +4,43 @@ import { Link } from "react-router-dom";
 //import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 import MyButton from '../../util/MyButton';
-import Notifications from './Notifications'
+import Notifications from './Notifications';
+import withStyles from '@material-ui/core/styles/withStyles';
+import AppIcon from '../../images/argupediaLogo.png'
+
 //MUI
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Button from "@material-ui/core/Button"
+import Typography from '@material-ui/core/Typography';
+
 //Icons
 import AddIcon from "@material-ui/icons/Add"
 import HomeIcon from "@material-ui/icons/Home"
-//import Notifications from "@material-ui/icons/Notifications"
 
-
-export default function Navbar() {
+const styles= (theme) => ({
+    ...theme.loginSignupStyle,
+    navbarImage: {
+        margin: '10px auto 10px 20px',
+        width: '8%'
+    },
+    appBar: {
+        backgroundColor: '#7f47ed'
+    },
+    siteTitle: {
+        margin: '10px auto 10px auto'
+    }
+})
+function Navbar(props) {
+    const { classes } = props
     const { authenticated } = useSelector((state) => state.user);
     return (
-        <AppBar>
+        <AppBar className={classes.appBar}>
             <Toolbar className="nav-container">
+                <img src={AppIcon} alt="Argupedia logo" className={classes.navbarImage} component={Link} to="/" />
+                <Typography variant="h4" className={classes.siteTitle} color="inherit" component={Link} to="/">
+                    Argupedia
+                </Typography>
                 {authenticated
                     ? (<Fragment>
                         <Link to="/createPost">
@@ -36,7 +57,7 @@ export default function Navbar() {
                         <Notifications/>
                     </Fragment>)
                     : (<Fragment>
-                        <Button color="inherit" component={Link} to="/">Home</Button>
+                        <Button color="inherit" component={Link} to="/">Learn</Button>
                         <Button color="inherit" component={Link} to="/login">Login</Button>
                         <Button color="inherit" component={Link} to="/signup">Signup</Button>
                     </Fragment>)
@@ -46,3 +67,5 @@ export default function Navbar() {
         </AppBar>
     )
 }
+
+export default withStyles(styles)(Navbar)

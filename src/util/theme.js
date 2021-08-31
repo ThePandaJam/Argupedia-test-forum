@@ -1,15 +1,15 @@
 const themeFile = ({
     palette: {
       primary: {
-        light: '#33c9dc',
-        main: '#00bcd4',
-        dark: '#008394',
+        light: '#7f47ed',
+        main: '#5E17EB',
+        dark: '#3e0aa6',
         contrastText: '#fff',
       },
       secondary: {
-        light: '#ff6333',
-        main: '#ff3d00',
-        dark: '#b22a00',
+        light: '#ff7f30',
+        main: '#f0610a4',
+        dark: '#c9550e',
         contrastText: '#fff',
       },
     },
@@ -25,7 +25,7 @@ const themeFile = ({
           width: '20%'  
       },
       pageTitle: {
-          margin: '10px auto 10px auto'
+          margin: '40px auto 10px auto'
       },
       textField: {
           margin: '10px auto 10px auto'
@@ -67,7 +67,7 @@ const themeFile = ({
       handle: {
           width: 60,
           height: 20,
-          backgroundColor: '#00bcd4',
+          backgroundColor: '#3e0aa6',
           marginBottom: 7
       },
       date: {
@@ -114,7 +114,7 @@ const themeFile = ({
             verticalAlign: 'middle'
           },
           '& a': {
-            color: '#00bcd4'
+            color: '#3e0aa6'
           }
         },
         '& hr': {
