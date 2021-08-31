@@ -15,6 +15,21 @@ This project was built using Node version 14.17.3. You must have Node version 14
 5. Once the installation project is complete, you can run ```npm start``` to run the app in development mode. (The page will reload if you save any changes to the source code. You will see any errors in the console)
 6. Open a browser to http://localhost:3000/ to view the app in the browser
 
+## User credentials for testing
+If you wish to try out the application for yourself, you can sign up as a new user or use one of these users' credentials:
+
+### User1
+email: user1@email.com
+password: Argument123
+
+### User2
+email: user2@email.com
+password: Critical123
+
+### User3
+email: user3@email.com
+password: Scheme123
+
 See the ```createReactAppREADME.md``` file for details on available scripts, deployment and more.
 ## Credits
 ### Code
