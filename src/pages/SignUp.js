@@ -1,7 +1,6 @@
 //based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/pages/signup.js
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import AppIcon from '../images/argupediaLogo.png'
 
 //MUI imports 
 import Grid from '@material-ui/core/Grid'
@@ -63,7 +62,6 @@ function SignUp(props) {
         <Grid container className={classes.form}>
             <Grid item sm/>
             <Grid item sm>
-                <img src={AppIcon} alt="Argupedia logo" className={classes.image} />
                 <Typography variant="h2" className={classes.pageTitle}>
                     Sign Up
                 </Typography>
