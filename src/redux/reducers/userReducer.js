@@ -1,3 +1,4 @@
+//based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/redux/reducers/userReducer.js
 import { 
     SET_USER, 
     SET_AUTHENTICATED, 
@@ -8,7 +9,7 @@ import {
     UNUPVOTE_POST,
     UNDOWNVOTE_POST,
     MARK_NOTIFICATIONS_READ
-} from "../reducers/types";
+} from "../types";
 
 const initialState = {
     authenticated: false,

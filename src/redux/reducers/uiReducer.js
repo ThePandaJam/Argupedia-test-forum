@@ -1,4 +1,5 @@
-import { SET_ERRORS, CLEAR_ERRORS, LOADING_UI, STOP_LOADING_UI } from "./types";
+//based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/redux/reducers/uiReducer.js
+import { SET_ERRORS, CLEAR_ERRORS, LOADING_UI, STOP_LOADING_UI } from "../types";
 
 const initialState = {
     loading: false,

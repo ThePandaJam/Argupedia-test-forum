@@ -1,3 +1,4 @@
+// based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/pages/home.js
 import Grid from '@material-ui/core/Grid'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

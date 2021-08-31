@@ -1,3 +1,4 @@
+// based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/layout/Navbar.js
 import React, { Fragment } from 'react'
 import { Link } from "react-router-dom";
 //import { connect } from 'react-redux';

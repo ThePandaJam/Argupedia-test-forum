@@ -6,8 +6,8 @@ import themeFile from './util/theme'
 import jwtDecode from 'jwt-decode';
 //Redux
 import { Provider } from 'react-redux';
-import store from './redux/reducers/store';
-import { SET_AUTHENTICATED } from './redux/reducers/types';
+import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 //pages
 import HomePage from './pages/HomePage'
@@ -27,7 +27,7 @@ axios.defaults.baseURL = 'https://europe-west1-test-forum-995a7.cloudfunctions.n
 const token = localStorage.FBIdToken;
 if(token){
   const decodedToken = jwtDecode(token);
-  if(decodedToken.exp * 10000 < Date.now()){
+  if(decodedToken.exp * 1000 < Date.now()){
     store.dispatch(logoutUser())
     window.location.href = '/login'
   } else {

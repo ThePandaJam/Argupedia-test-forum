@@ -1,3 +1,4 @@
+//based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/pages/signup.js
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import AppIcon from '../images/argupediaLogo.png'
