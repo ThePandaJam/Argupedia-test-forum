@@ -33,6 +33,12 @@ https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/
 by WandererCreative on Pixabay
 
 User1 picture:
+https://pixabay.com/photos/young-woman-fashion-style-woman-1867618/
+by Pexels on Pixabay
 User2 picture:
+https://pixabay.com/photos/attractive-beautiful-girl-model-1869761/
+by Pexels on Pixabay
 User3 picture:
+https://pixabay.com/photos/happy-man-adult-city-face-guy-1836445/
+by Pexels on Pixabay
 
