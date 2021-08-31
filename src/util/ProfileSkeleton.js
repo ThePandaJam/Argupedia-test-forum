@@ -15,7 +15,7 @@ const styles = (theme) => ({
     handle: {
         height: 20, 
         width: 60,
-        backgroundColor: '#00bcd4',
+        backgroundColor: '#3e0aa6',
         margin: '0 auto 7px auto'
     },
     fullLine: {
