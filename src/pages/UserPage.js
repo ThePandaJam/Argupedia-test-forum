@@ -58,7 +58,7 @@ export default function UserPage(props) {
     )
 
     return (
-        <Grid container spacing={10}>
+        <Grid container spacing={4}>
             <Grid item sm={8} xs={12}>
                 {userPostsMarkup}
             </Grid>

@@ -29,7 +29,7 @@ export default function HomePage(props) {
         )
 
     return (
-        <Grid container spacing={10}>
+        <Grid container spacing={4}>
             <Grid item sm={8} xs={12}>
                 {recentPostsMarkup}
             </Grid>

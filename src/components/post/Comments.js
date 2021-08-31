@@ -13,13 +13,16 @@ import Typography from '@material-ui/core/Typography';
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
     commentImage: {
-        maxwidth: '100%',
+        maxwidth: '90%',
         height: 100,
+        width: 100,
         objectFit: 'cover',
-        borderRadius: '50%'
+        borderRadius: '50%',
+        marginLeft: 30
     },
     commentData: {
-        marginLeft: 20
+        marginLeft: 40,
+        marginBottom: 10
     }
 })
 
