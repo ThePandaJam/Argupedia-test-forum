@@ -18,6 +18,7 @@ import UserPage from './pages/UserPage';
 //components
 import Navbar from './components/layout/Navbar';
 import AuthRoute from './util/AuthRoute'
+import ProtectedRoute from './util/ProtectedRoute';
 import axios from 'axios';
 
 const theme = createTheme(themeFile);
@@ -48,7 +49,7 @@ function App() {
               <Route exact path="/" component={HomePage} />
               <AuthRoute path="/signup" component={SignUp}/>
               <AuthRoute path="/login" component={Login}/>
-              <Route path="/createPost" component={PostCreation}/>
+              <ProtectedRoute exact path="/createPost" component={PostCreation}/>
               <Route exact path="/users/:userHandle" component={UserPage} />
               <Route exact path="/users/:userHandle/post/:postId" component={UserPage} />
             </Switch>
