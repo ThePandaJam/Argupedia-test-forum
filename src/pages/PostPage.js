@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useParams, Link } from "react-router-dom";
 import dayjs from 'dayjs';
 import Comments from '../components/post/Comments';
@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getPost, clearErrors } from '../redux/actions/dataActions';
+import { getPost } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
