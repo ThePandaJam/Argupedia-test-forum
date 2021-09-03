@@ -16,7 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 //icons
 import CloseIcon from '@material-ui/icons/Close';
-import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
 
 //redux
@@ -49,11 +48,6 @@ const styles = (theme) => ({
         top:'15px',
         position: 'absolute'
     },
-    expandButton: {
-        position: 'absolute',
-        right: '0',
-        marginRight: '20px',
-    },
     spinnerDiv: {
         textAlign: 'center',
         marginTop: 50,
@@ -78,7 +72,7 @@ function PostDialog(props) {
         userImage, 
         userHandle, 
         comments
-    } = useSelector((state) => state.data.post);
+    } = useSelector((state) => state.data.post);  
     
     const { UI: { loading } } = useSelector((state) => state);
     const [open, setOpen] = useState(false);
@@ -117,9 +111,7 @@ function PostDialog(props) {
 
     return (
         <Fragment>
-            <MyButton tip="Open full post" tipClassName={classes.expandButton} onClick={handleOpen}>
-                <ZoomOutMapIcon color="primary" />
-            </MyButton>
+            
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -178,24 +170,5 @@ function PostDialog(props) {
     )
 }
 
-
-// PostDialog.propTypes = {
-//     getPost: PropTypes.func.isRequired,
-//     clearErrors: PropTypes.func.isRequired,
-//     postId: PropTypes.string.isRequired,
-//     userHandle: PropTypes.string.isRequired,
-//     post: PropTypes.object.isRequired,
-//     UI: PropTypes.object.isRequired
-// }
-
-// const mapStateToProps = (state) => ({
-//     post: state.data.post,
-//     UI: state.UI
-// })
-
-// const mapAcitonsToProps = {
-//     getPost,
-//     clearErrors
-// }
 
 export default withStyles(styles)(PostDialog)

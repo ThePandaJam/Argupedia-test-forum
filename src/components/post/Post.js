@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import MyButton from '../../util/MyButton';
 import DeletePostButton from './DeletePostButton';
-import PostDialog from './PostDialog';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +16,7 @@ import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
 //MUI general imports
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -40,7 +40,14 @@ const styles = {
     content: {
         padding:25,
         objectFit: 'cover'
-    }
+    },
+    expandButton: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        marginRight: '20px',
+        marginBottom: '20px',
+    },
 }
 
 function Post(props) {
@@ -194,8 +201,13 @@ function Post(props) {
                     <ChatIcon color="primary" />
                 </MyButton>
                 <span>{argumentCount} arguments</span>
-                <PostDialog currentPostId={postId} opUserHandle={userHandle} openDialog={props.openDialog}/>
+                
             </CardContent>
+            <Link to={`/posts/${postId}`} >
+                    <MyButton tip="Open full post" className={classes.expandButton}>
+                        <ZoomOutMapIcon color="primary" />
+                    </MyButton>
+                </Link>
         </Card>
     )
 }

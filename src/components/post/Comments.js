@@ -32,7 +32,7 @@ function Comments(props) {
     const { comments } = useSelector((state) => state.data.post);
     return (
         <Grid container>
-            {comments.map((comment, index) => {
+            {comments && comments.map((comment, index) => {
                 const{ body, createdAt, userImage, userHandle} = comment;
                 return(
                     <Fragment key={createdAt}>
