@@ -115,7 +115,7 @@ export default function VoteButtons(props) {
                             )
                     )
                 }
-                <span>{userScore} points</span>
+                <span>{userScore} {userScore === 1 ? 'point' : 'points'}</span>
                 {!authenticated
                     ? (
                         <Link to="/login">
