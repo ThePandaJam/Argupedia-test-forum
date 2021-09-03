@@ -3,8 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import dayjs from 'dayjs';
 import Comments from '../components/post/Comments';
 import CommentForm from '../components/post/CommentForm';
+import VoteButtons from '../components/post/VoteButtons';
 
-//MUI imports 
 //MUI imports 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
@@ -107,6 +107,7 @@ function PostPage(props) {
                         <Typography variant="body1">
                             {body}
                         </Typography>
+                        <VoteButtons postId={postId} userScore={userScore} />
                     </Grid>
                     <hr className={classes.commentSeparator}/>
                     <Typography variant="h4" color="primary">Arguments:</Typography>
