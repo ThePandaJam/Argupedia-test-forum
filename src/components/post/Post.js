@@ -1,5 +1,5 @@
 // based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/Scream.js
-import React, { useState }from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -8,8 +8,7 @@ import DeletePostButton from './DeletePostButton';
 import VoteButtons from './VoteButtons';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { upvotePost, unUpvotePost, downvotePost, unDownvotePost } from '../../redux/actions/dataActions'; 
+import { useSelector } from 'react-redux';
 
 //icons
 import ChatIcon from '@material-ui/icons/Chat'
