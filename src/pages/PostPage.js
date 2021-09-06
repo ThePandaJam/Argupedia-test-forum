@@ -32,7 +32,7 @@ const styles = (theme) => ({
         borderRadius: '50%',
         objectFit: 'cover'
     },
-    dialogContent: {
+    postPageContent: {
         padding:20
     },
     spinnerDiv: {
@@ -79,7 +79,7 @@ function PostPage(props) {
                     <Typography variant="h4">Loading post...</Typography>
                 </div>
                 )
-            : (<Grid container spacing={12} className={classes.dialogContent}>
+            : (<Grid container spacing={2} className={classes.postPageContent}>
                     <Grid item sm={3}>
                         <img src={userImage} alt="profile" className={classes.profileImage} />
                     </Grid>

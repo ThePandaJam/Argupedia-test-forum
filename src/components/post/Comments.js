@@ -1,7 +1,5 @@
 //based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/Comments.js
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
-import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import Comment from './Comment';
 
@@ -36,8 +34,8 @@ function Comments(props) {
             {comments && comments.length > 0 ? (
                 comments.map((comment, index) => {
                     return(
-                        <Fragment>
-                            <Comment key={comment.argumentId} comment={comment} />
+                        <Fragment key={comment.argumentId}>
+                            <Comment comment={comment} />
                             {index !== comments.length -1 && (
                                 <hr className={classes.visibleSeparator}/>
                             )}

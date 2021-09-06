@@ -5,7 +5,7 @@ import MyButton from '../../util/MyButton';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-//import { upvoteArgument, unUpvoteArgument, downvoteArgument, unDownvoteArgument } from '../../redux/actions/dataActions';
+import { upvoteArgument, unUpvoteArgument, downvoteArgument, unDownvoteArgument } from '../../redux/actions/dataActions';
 
 //icons
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
@@ -20,8 +20,8 @@ export default function CommentVoteButtons(props) {
     const {
         user: {
             authenticated,
-            commentUpvotes,
-            commentDownvotes
+            argumentUpvotes,
+            argumentDownvotes
         },
     } = useSelector((state) => state);
 
@@ -29,7 +29,7 @@ export default function CommentVoteButtons(props) {
     const [downvoted, setDownvoted] = useState(downvotedArgument());
 
     function upvotedArgument() {
-        if(commentUpvotes && commentUpvotes.find(upvote => upvote.argumentId === argumentId)){
+        if(argumentUpvotes && argumentUpvotes.find(upvote => upvote.argumentId === argumentId)){
             return true
         } else {
             return false
@@ -37,7 +37,7 @@ export default function CommentVoteButtons(props) {
     };
 
     function downvotedArgument() {
-        if(commentDownvotes && commentDownvotes.find(downvote => downvote.argumentId === argumentId)){
+        if(argumentDownvotes && argumentDownvotes.find(downvote => downvote.argumentId === argumentId)){
             return true
         } else {
             return false
@@ -51,7 +51,7 @@ export default function CommentVoteButtons(props) {
             unDownvoteThisArgument()
         }
         //add upvote in the db
-        //dispatch(upvoteArgument(argumentId))
+        dispatch(upvoteArgument(argumentId))
         console.log("Argument upvoted")
         //add upvote in the ui
         setUpvoted(true)
@@ -60,7 +60,7 @@ export default function CommentVoteButtons(props) {
     //remove upvote funciton
     function unUpvoteThisArgument(){
         //remove upvote in the db
-        //dispatch(unUpvoteArgument(argumentId))
+        dispatch(unUpvoteArgument(argumentId))
         console.log("Argument un-upvoted")
         //remove upvote in the ui
         setUpvoted(false)
@@ -74,7 +74,7 @@ export default function CommentVoteButtons(props) {
             unUpvoteThisArgument()
         }
         //add downvote in the db
-        //dispatch(downvoteArgument(argumentId))
+        dispatch(downvoteArgument(argumentId))
         console.log("Argument downvoted")
         //add downvote in the ui
         setDownvoted(true)
@@ -83,7 +83,7 @@ export default function CommentVoteButtons(props) {
     //remove downvote function
     function unDownvoteThisArgument(){
         //remove downvote in the db
-        //dispatch(unDownvoteArgument(argumentId))
+        dispatch(unDownvoteArgument(argumentId))
         console.log("Argument un-downvoted")
         //remove downvote in the UI
         setDownvoted(false)

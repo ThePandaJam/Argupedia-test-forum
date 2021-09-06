@@ -8,6 +8,10 @@ import {
     DOWNVOTE_POST,
     UNUPVOTE_POST,
     UNDOWNVOTE_POST,
+    UPVOTE_COMMENT,
+    UNUPVOTE_COMMENT,
+    DOWNVOTE_COMMENT,
+    UNDOWNVOTE_COMMENT,
     MARK_NOTIFICATIONS_READ
 } from "../types";
 
@@ -17,6 +21,8 @@ const initialState = {
     credentials: {},
     upvotes: [],
     downvotes: [],
+    argumentUpvotes: [],
+    argumentDownvotes: [],
     notifications: []
 }
 
@@ -74,6 +80,42 @@ export default function userReducer( state = initialState, action){
                 ...state,
                 downvotes: state.downvotes.filter(
                     (downvote) => downvote.postId !== action.payload.postId
+                )
+            }
+        case UPVOTE_COMMENT:
+            return{
+                ...state,
+                argumentUpvotes: [
+                    ...state.argumentUpvotes,
+                    {
+                        userHandle: state.credentials.handle,
+                        argumentId: action.payload.argumentId
+                    }
+                ]
+            }
+        case UNUPVOTE_COMMENT:
+            return {
+                ...state,
+                argumentUpvotes: state.argumentUpvotes.filter(
+                    (argumentUpvote) => argumentUpvote.argumentId !== action.payload.argumentId
+                )
+            }
+        case DOWNVOTE_COMMENT:
+            return{
+                ...state,
+                argumentDownvotes: [
+                    ...state.argumentDownvotes,
+                    {
+                        userHandle: state.credentials.handle,
+                        argumentId: action.payload.argumentId
+                    }
+                ]
+            }
+        case UNDOWNVOTE_COMMENT:
+            return {
+                ...state,
+                argumentDownvotes: state.argumentDownvotes.filter(
+                    (argumentDownvote) => argumentDownvote.argumentId !== action.payload.argumentId
                 )
             }
         case MARK_NOTIFICATIONS_READ:

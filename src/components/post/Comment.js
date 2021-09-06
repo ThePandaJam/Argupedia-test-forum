@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
-import MyButton from '../../util/MyButton';
 import CommentVoteButtons from './CommentVoteButtons'
 
 //MUI
@@ -30,10 +29,6 @@ const styles = (theme) => ({
 function Comment(props) {
     const {
         user: {
-            authenticated,
-            credentials :{
-                handle
-            },
             commentUpvotes,
             commentDownvotes
         },
