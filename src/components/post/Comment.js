@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import MyButton from '../../util/MyButton';
-import DeletePostButton from './DeletePostButton';
 import CommentVoteButtons from './CommentVoteButtons'
 
 //MUI
@@ -73,6 +72,7 @@ function Comment(props) {
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body1">{body}</Typography>
+                        <CommentVoteButtons argumentId={argumentId} argumentScore={argumentScore} />
                     </div>
                 </Grid>
             </Grid>
