@@ -3,8 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import dayjs from 'dayjs';
 import Comments from '../components/post/Comments';
 import CommentForm from '../components/post/CommentForm';
+import VoteButtons from '../components/post/VoteButtons';
 
-//MUI imports 
 //MUI imports 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
@@ -32,7 +32,7 @@ const styles = (theme) => ({
         borderRadius: '50%',
         objectFit: 'cover'
     },
-    dialogContent: {
+    postPageContent: {
         padding:20
     },
     spinnerDiv: {
@@ -79,7 +79,7 @@ function PostPage(props) {
                     <Typography variant="h4">Loading post...</Typography>
                 </div>
                 )
-            : (<Grid container spacing={12} className={classes.dialogContent}>
+            : (<Grid container spacing={2} className={classes.postPageContent}>
                     <Grid item sm={3}>
                         <img src={userImage} alt="profile" className={classes.profileImage} />
                     </Grid>
@@ -90,7 +90,7 @@ function PostPage(props) {
                         variant="h5"
                         to={`/users/${userHandle}`}
                         >
-                            @{userHandle}
+                            {userHandle}
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body2" color="textSecondary">
@@ -107,6 +107,7 @@ function PostPage(props) {
                         <Typography variant="body1">
                             {body}
                         </Typography>
+                        <VoteButtons postId={postId} userScore={userScore} />
                     </Grid>
                     <hr className={classes.commentSeparator}/>
                     <Typography variant="h4" color="primary">Arguments:</Typography>

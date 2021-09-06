@@ -13,7 +13,11 @@ import {
     STOP_LOADING_UI, 
     SET_ERRORS, 
     CLEAR_ERRORS,
-    SUBMIT_COMMENT
+    SUBMIT_COMMENT,
+    UPVOTE_COMMENT,
+    UNUPVOTE_COMMENT,
+    DOWNVOTE_COMMENT,
+    UNDOWNVOTE_COMMENT
 } from '../types';
 import axios from 'axios';
 
@@ -140,6 +144,54 @@ export const deletePost = (postId) => (dispatch) => {
             dispatch({
                 type:DELETE_POST,
                 payload: postId
+            })
+        })
+        .catch(err => console.log(err));
+}
+
+//upvote a comment
+export const upvoteArgument = (argumentId) => (dispatch) => {
+    axios.get(`/argument/${argumentId}/upvote`)
+        .then(res => {
+            dispatch({
+                type: UPVOTE_COMMENT,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err));
+}
+
+//unupvote a comment
+export const unUpvoteArgument = (argumentId) => (dispatch) => {
+    axios.get(`/argument/${argumentId}/unupvote`)
+        .then(res => {
+            dispatch({
+                type: UNUPVOTE_COMMENT,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err));
+}
+
+//downvote comment
+export const downvoteArgument = (argumentId) => (dispatch) => {
+    axios.get(`/argument/${argumentId}/downvote`)
+        .then(res => {
+            dispatch({
+                type: DOWNVOTE_COMMENT,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err));
+}
+
+//undownvote comment
+export const unDownvoteArgument = (argumentId) => (dispatch) => {
+    axios.get(`/argument/${argumentId}/undownvote`)
+        .then(res => {
+            dispatch({
+                type: UNDOWNVOTE_COMMENT,
+                payload: res.data
             })
         })
         .catch(err => console.log(err));

@@ -9,12 +9,17 @@ import {
     LOADING_DATA, 
     DELETE_POST,
     CREATE_POST,
-    SUBMIT_COMMENT
+    SUBMIT_COMMENT,
+    UPVOTE_COMMENT,
+    UNUPVOTE_COMMENT,
+    DOWNVOTE_COMMENT,
+    UNDOWNVOTE_COMMENT
 } from "../types";
 
 const initialState = {
     posts: [],
     post: {},
+    comment: {},
     loading: false
 };
 
@@ -41,6 +46,7 @@ export default function dataReducer(state = initialState, action){
         case UNUPVOTE_POST:
         case DOWNVOTE_POST:
         case UNDOWNVOTE_POST:
+            //find the index of the post being rated
             let index = state.posts.findIndex((post) => post.postId === action.payload.postId);
             state.posts[index] = action.payload
             if(state.post.postId === action.payload.postId) {
@@ -75,6 +81,19 @@ export default function dataReducer(state = initialState, action){
                         ...state.post.comments
                     ]
                 }
+            }
+        // reducer for rating comments
+        case UPVOTE_COMMENT:
+        case UNUPVOTE_COMMENT:
+        case DOWNVOTE_COMMENT:
+        case UNDOWNVOTE_COMMENT:
+            let commentIndex = state.post.comments.findIndex((comment) => comment.argumentId === action.payload.argumentId);
+            state.post.comments[commentIndex] = action.payload
+            if(state.comment.argumentId === action.payload.argumentId) {
+                state.comment = action.payload;
+                }
+            return{
+                ...state
             }
         default:
             return state;

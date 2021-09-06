@@ -1,21 +1,17 @@
 // based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/Scream.js
-import React, { useState }from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import MyButton from '../../util/MyButton';
 import DeletePostButton from './DeletePostButton';
+import VoteButtons from './VoteButtons';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { upvotePost, unUpvotePost, downvotePost, unDownvotePost } from '../../redux/actions/dataActions'; 
+import { useSelector } from 'react-redux';
 
 //icons
 import ChatIcon from '@material-ui/icons/Chat'
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
 //MUI general imports
@@ -51,7 +47,6 @@ const styles = {
 }
 
 function Post(props) {
-    const dispatch = useDispatch()
     const {
         user: {
             authenticated,
@@ -64,7 +59,6 @@ function Post(props) {
     } = useSelector((state) => state);
     const { 
         classes,
-        //openDialog,
         post: {
             body, 
             createdAt, 
@@ -75,70 +69,7 @@ function Post(props) {
             argumentCount},
     } = props
 
-    const [upvoted, setUpvoted] = useState(upvotedPost());
-    const [downvoted, setDownvoted] = useState(downvotedPost());
     dayjs.extend(relativeTime)
-
-    function upvotedPost() {
-        if(upvotes && upvotes.find(upvote => upvote.postId === postId)){
-            //setUpvoted(true)
-            return true
-        } else {
-            //setUpvoted(false)
-            return false
-        }
-    };
-
-    function downvotedPost() {
-        if(downvotes && downvotes.find(downvote => downvote.postId === postId)){
-            //setDownvoted(true) 
-            return true
-        } else {
-            //setDownvoted(false) 
-            return false
-        }
-    };
-    //sort out the logic where if post is downvoted, undownvote post and only then upvote it
-    //upvote function
-    function upvoteThisPost(){
-        //if the post already has a downvote, remove downvote and add upvote
-        if(downvoted){
-            unDownvoteThisPost()
-        }
-        //add upvote in the db
-        dispatch(upvotePost(postId))
-        //add upvote in the ui
-        setUpvoted(true)
-    }
-
-    //remove upvote funciton
-    function unUpvoteThisPost(){
-        //remove upvote in the db
-        dispatch(unUpvotePost(postId))
-        //remove upvote in the ui
-        setUpvoted(false)
-    }
-
-    //downvote function
-    function downvoteThisPost(){
-        //if the post already has an upvote, remove upvote and add downvote
-        if(upvoted){
-            //run remove upvote function
-            unUpvoteThisPost()
-        }
-        //add downvote in the db
-        dispatch(downvotePost(postId))
-        //add downvote in the ui
-        setDownvoted(true)
-    }
-    
-    //remove downvote function
-    function unDownvoteThisPost(){
-        //remove downvote in the db
-        dispatch(unDownvotePost(postId))
-        //remove downvote in the UI
-        setDownvoted(false)
-    }
         
     return (
         <Card className={classes.card}>
@@ -151,56 +82,11 @@ function Post(props) {
                 {authenticated && userHandle === handle && <DeletePostButton postId={postId}/>}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1">{body}</Typography>
-                {!authenticated
-                    ? (
-                        <Link to="/login">
-                            <MyButton tip="Upvote">
-                                <ThumbUpOutlinedIcon color="primary"/>
-                            </MyButton>
-                        </Link>
-                    ) 
-                    : (
-                        upvoted
-                            ? (
-                                <MyButton tip="Undo upvote" onClick={unUpvoteThisPost}>
-                                    <ThumbUpIcon color="primary"/>
-                                </MyButton>
-                            ) 
-                            : (
-                                <MyButton tip="Upvote" onClick={upvoteThisPost}>
-                                    <ThumbUpOutlinedIcon color="primary"/>
-                                </MyButton>
-                            )
-                    )
-                }
-                <span>{userScore} points</span>
-                {!authenticated
-                    ? (
-                        <Link to="/login">
-                            <MyButton tip="Downvote">
-                                <ThumbDownOutlinedIcon color="primary"/>
-                            </MyButton>
-                        </Link>
-                            
-                    ) 
-                    : (
-                        downvoted 
-                            ? (
-                                <MyButton tip="Undo downvote" onClick={unDownvoteThisPost}>
-                                    <ThumbDownIcon color="primary"/>
-                                </MyButton>
-                            ) 
-                            : (
-                                <MyButton tip="Downvote" onClick={downvoteThisPost}>
-                                    <ThumbDownOutlinedIcon color="primary"/>
-                                </MyButton>
-                            )
-                    )
-                }
+                <VoteButtons postId={postId} userScore={userScore} />
                 <MyButton tip="Arguments">
                     <ChatIcon color="primary" />
                 </MyButton>
-                <span>{argumentCount} arguments</span>
+                <span>{argumentCount} {argumentCount === 1 ? 'argument' : 'arguments'}</span>
                 
             </CardContent>
             <Link to={`/posts/${postId}`} >
