@@ -34,9 +34,9 @@ function Comments(props) {
         <Grid container>
             {comments && comments.length > 0 ? (
                 comments.map((comment, index) => {
-                    const{ body, createdAt, userImage, userHandle} = comment;
+                    const{ argumentId, body, createdAt, userImage, userHandle} = comment;
                     return(
-                        <Fragment key={createdAt}>
+                        <Fragment key={argumentId}>
                             <Grid item sm={12}>
                                 <Grid container>
                                     <Grid item sm={2}>
