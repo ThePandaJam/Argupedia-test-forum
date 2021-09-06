@@ -90,7 +90,7 @@ function PostPage(props) {
                         variant="h5"
                         to={`/users/${userHandle}`}
                         >
-                            @{userHandle}
+                            {userHandle}
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body2" color="textSecondary">
