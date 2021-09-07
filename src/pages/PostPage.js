@@ -56,7 +56,7 @@ function PostPage(props) {
 
     const { 
         postId, 
-        body, 
+        title, 
         createdAt,
         userScore, 
         argumentCount, 
@@ -105,7 +105,7 @@ function PostPage(props) {
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body1">
-                            {body}
+                            {title}
                         </Typography>
                         <VoteButtons postId={postId} userScore={userScore} />
                     </Grid>

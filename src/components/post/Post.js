@@ -60,7 +60,7 @@ function Post(props) {
     const { 
         classes,
         post: {
-            body, 
+            title, 
             createdAt, 
             userImage, 
             userHandle, 
@@ -81,7 +81,7 @@ function Post(props) {
                 <Typography variant="h5" color="primary" component={Link} to={`/users/${userHandle}`}>{userHandle}</Typography>
                 {authenticated && userHandle === handle && <DeletePostButton postId={postId}/>}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
-                <Typography variant="body1">{body}</Typography>
+                <Typography variant="body1">{title}</Typography>
                 <VoteButtons postId={postId} userScore={userScore} />
                 <MyButton tip="Arguments">
                     <ChatIcon color="primary" />

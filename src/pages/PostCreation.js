@@ -32,7 +32,7 @@ function PostCreation(props) {
     const { UI: { loading, uiErrors } } = useSelector((state) => state);
     const [errors, setErrors] = useState([])
     //change to set title
-    const [body, setBody] = useState("")
+    const [title, setTitle] = useState("")
     // add scheme + setter
     // add scheme form based on the chosen scheme (similar to update user data)
     const history = useHistory()
@@ -45,15 +45,15 @@ function PostCreation(props) {
 
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
-        if (name === "body") {
-          setBody(value);
+        if (name === "title") {
+          setTitle(value);
         }
       }
 
     function handleSubmit(e) {
         e.preventDefault();
         const postData = {
-            body: body
+            title: title
         }
         dispatch(createPost(postData, history))
     }
@@ -68,17 +68,17 @@ function PostCreation(props) {
                 </Typography>
                 <form noValidate onSubmit={handleSubmit}>
                     <TextField 
-                        id="body" 
-                        name="body" 
+                        id="title" 
+                        name="title" 
                         type="text" 
                         label="Post title" 
                         multiline
                         rows="3"
                         placeholder="An interesting debate topic"
-                        helperText={errors.body}
-                        error={errors.body ? true : false}
+                        helperText={errors.title}
+                        error={errors.title ? true : false}
                         className={classes.textField}
-                        value={body} 
+                        value={title} 
                         onChange = {(event) => onChangeHandler(event)} 
                         fullWidth />
                     {errors.general && (
