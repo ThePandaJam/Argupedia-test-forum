@@ -34,6 +34,7 @@ function PostCreation(props) {
     //change to set title
     const [title, setTitle] = useState("")
     // add scheme + setter
+    const [scheme, setScheme] = useState("")
     // add scheme form based on the chosen scheme (similar to update user data)
     const history = useHistory()
 
@@ -47,13 +48,16 @@ function PostCreation(props) {
         const { name, value } = event.currentTarget;
         if (name === "title") {
           setTitle(value);
+        } else if (name === "scheme") {
+            setScheme(value);
         }
       }
 
     function handleSubmit(e) {
         e.preventDefault();
         const postData = {
-            title: title
+            title: title,
+            scheme: scheme
         }
         dispatch(createPost(postData, history))
     }
@@ -71,7 +75,7 @@ function PostCreation(props) {
                         id="title" 
                         name="title" 
                         type="text" 
-                        label="Post title" 
+                        label="Debate topic" 
                         multiline
                         rows="3"
                         placeholder="An interesting debate topic"
@@ -79,6 +83,18 @@ function PostCreation(props) {
                         error={errors.title ? true : false}
                         className={classes.textField}
                         value={title} 
+                        onChange = {(event) => onChangeHandler(event)} 
+                        fullWidth />
+                    <TextField 
+                        id="scheme" 
+                        name="scheme" 
+                        type="text" 
+                        label="Argument scheme" 
+                        placeholder="Chosen argument scheme"
+                        helperText={errors.scheme}
+                        error={errors.scheme ? true : false}
+                        className={classes.textField}
+                        value={scheme} 
                         onChange = {(event) => onChangeHandler(event)} 
                         fullWidth />
                     {errors.general && (

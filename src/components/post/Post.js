@@ -34,15 +34,16 @@ const styles = {
         minWidth: 200,
     },
     content: {
-        padding:25,
-        objectFit: 'cover'
+        padding: 25,
+        objectFit: 'cover',
+        width: '100%'
     },
     expandButton: {
         position: 'absolute',
         right: 0,
         bottom: 0,
         marginRight: '20px',
-        marginBottom: '20px',
+        marginBottom: '20px'
     },
 }
 
@@ -60,7 +61,8 @@ function Post(props) {
     const { 
         classes,
         post: {
-            title, 
+            title,
+            scheme, 
             createdAt, 
             userImage, 
             userHandle, 
@@ -82,14 +84,14 @@ function Post(props) {
                 {authenticated && userHandle === handle && <DeletePostButton postId={postId}/>}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1">{title}</Typography>
+                <Typography variant="body2" color="textSecondary">{scheme}</Typography>
                 <VoteButtons postId={postId} userScore={userScore} />
                 <MyButton tip="Arguments">
                     <ChatIcon color="primary" />
                 </MyButton>
                 <span>{argumentCount} {argumentCount === 1 ? 'argument' : 'arguments'}</span>
-                
             </CardContent>
-            <Link to={`/posts/${postId}`} >
+                <Link to={`/posts/${postId}`} >
                     <MyButton tip="Open full post" className={classes.expandButton}>
                         <ZoomOutMapIcon color="primary" />
                     </MyButton>

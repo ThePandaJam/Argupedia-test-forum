@@ -56,7 +56,8 @@ function PostPage(props) {
 
     const { 
         postId, 
-        title, 
+        title,
+        scheme, 
         createdAt,
         userScore, 
         argumentCount, 
@@ -98,7 +99,7 @@ function PostPage(props) {
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body2" color="textSecondary">
-                            Post score: {userScore} points
+                            Scheme: {scheme}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
                             Arguments: {argumentCount}
