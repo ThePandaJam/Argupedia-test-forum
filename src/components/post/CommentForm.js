@@ -20,7 +20,7 @@ const styles = (theme) => ({
 function CommentForm(props) {
     const dispatch = useDispatch()
     const { classes } = props
-    const {  loading, uiErrors } = useSelector((state) => state.UI);
+    const {  uiLoading, uiErrors } = useSelector((state) => state.UI);
     const { authenticated } = useSelector((state) => state.user);
     const { postId } = useSelector((state) => state.data.post);
 
@@ -70,7 +70,7 @@ function CommentForm(props) {
                                 variant="contained" 
                                 color="primary" 
                                 className={classes.submitButton}
-                                disabled={loading}
+                                disabled={uiLoading}
                             >
                                 Create argument
                             </Button>

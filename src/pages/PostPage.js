@@ -65,7 +65,7 @@ function PostPage(props) {
         userHandle, 
         comments
     } = useSelector((state) => state.data.post);  
-    const { UI: { loading } } = useSelector((state) => state);
+    const { UI: { uiLoading } } = useSelector((state) => state);
 
     useEffect(() => {
         dispatch(getPost(currentPostId))
@@ -74,7 +74,7 @@ function PostPage(props) {
 
     return (
         <Fragment>
-            {loading 
+            {uiLoading 
             ? (<div className={classes.spinnerDiv}>
                     <CircularProgress size={200} thickness={2}/>
                     <Typography variant="h4">Loading post...</Typography>

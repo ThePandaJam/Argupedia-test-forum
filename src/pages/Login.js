@@ -20,7 +20,7 @@ const styles = (theme) => ({...theme.loginSignupStyle})
 function Login(props) {
     const { classes } = props
     const dispatch = useDispatch();
-    const { UI: { loading, uiErrors } } = useSelector((state) => state);
+    const { UI: { uiLoading, uiErrors } } = useSelector((state) => state);
     
     const [errors, setErrors] = useState([])
     const [userEmail, setEmail] = useState("")
@@ -91,10 +91,10 @@ function Login(props) {
                         variant="contained" 
                         color="primary" 
                         className={classes.button}
-                        disabled={loading}
+                        disabled={uiLoading}
                     >
                         Login
-                        {loading && (
+                        {uiLoading && (
                             <CircularProgress size={30} className={classes.progress}/>
                         )}
                     </Button>

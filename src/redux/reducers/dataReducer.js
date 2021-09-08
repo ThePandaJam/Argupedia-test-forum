@@ -19,6 +19,7 @@ import {
 
 const initialState = {
     posts: [],
+    schemes:[],
     post: {},
     comment: {},
     loading: false

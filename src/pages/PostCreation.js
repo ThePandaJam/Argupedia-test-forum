@@ -13,8 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { createPost } from '../redux/actions/dataActions';
-
+import { createPost, getSchemes } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -29,7 +28,7 @@ const styles = (theme) => ({
 function PostCreation(props) {
     const { classes } = props
     const dispatch = useDispatch();
-    const { UI: { loading, uiErrors } } = useSelector((state) => state);
+    const { UI: { uiLoading, uiErrors } } = useSelector((state) => state);
     const [errors, setErrors] = useState([])
     //change to set title
     const [title, setTitle] = useState("")
@@ -42,6 +41,7 @@ function PostCreation(props) {
         if(uiErrors) {
             setErrors(uiErrors)
         }
+        dispatch(getSchemes());
     }, [uiErrors]);
 
     const onChangeHandler = event => {
@@ -107,10 +107,10 @@ function PostCreation(props) {
                         variant="contained" 
                         color="primary" 
                         className={classes.submitButton}
-                        disabled={loading}
+                        disabled={uiLoading}
                     >
                         Start a debate
-                        {loading && (
+                        {uiLoading && (
                             <CircularProgress size={30} className={classes.progressSpinner}/>
                         )}
                     </Button>
