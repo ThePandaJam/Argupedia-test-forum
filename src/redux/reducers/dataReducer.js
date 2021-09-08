@@ -13,7 +13,8 @@ import {
     UPVOTE_COMMENT,
     UNUPVOTE_COMMENT,
     DOWNVOTE_COMMENT,
-    UNDOWNVOTE_COMMENT
+    UNDOWNVOTE_COMMENT,
+    SET_SCHEMES
 } from "../types";
 
 const initialState = {
@@ -34,6 +35,12 @@ export default function dataReducer(state = initialState, action){
             return{
                 ...state,
                 posts: action.payload,
+                loading: false
+            };
+        case SET_SCHEMES:
+            return{
+                ...state,
+                schemes: action.payload,
                 loading: false
             };
         case SET_POST:

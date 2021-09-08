@@ -7,6 +7,7 @@ export const MARK_NOTIFICATIONS_READ = 'MARK_NOTIFICATIONS_READ';
 
 //data reducer types
 export const SET_POSTS = 'SET_POSTS'
+export const SET_SCHEMES = 'SET_SCHEMES'
 export const SET_POST = 'SET_POST'
 export const UPVOTE_POST  = 'UPVOTE_POST'
 export const UNUPVOTE_POST = 'UNUPVOTE_POST'

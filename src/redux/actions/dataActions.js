@@ -1,6 +1,7 @@
 // based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/redux/actions/dataActions.js
 import {
     SET_POSTS,
+    SET_SCHEMES,
     SET_POST, 
     CREATE_POST, 
     LOADING_DATA, 
@@ -34,6 +35,24 @@ export const getPosts = () => (dispatch) => {
         .catch(err => {
             dispatch({
                 type: SET_POSTS,
+                payload:[]
+            })
+        })
+}
+
+//get all schemes
+export const getSchemes = () => (dispatch) => {
+    dispatch({type: LOADING_DATA});
+    axios.get('/schemes')
+        .then(res => {
+            dispatch({
+                type: SET_SCHEMES,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_SCHEMES,
                 payload:[]
             })
         })
