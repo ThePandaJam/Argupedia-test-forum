@@ -24,8 +24,8 @@ const styles = {
 
 function DeletePostButton(props) {
     const dispatch = useDispatch();
-    const { classes } = props
-    const { postId } = useSelector((state) => state.data.post);
+    const { classes, postId } = props
+    //const { postId } = useSelector((state) => state.data.post);
     const [open, setOpen] = useState(false);
     function handleOpen(){
         setOpen(true)
