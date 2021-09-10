@@ -57,7 +57,10 @@ function PostPage(props) {
     const { 
         postId, 
         title,
-        scheme, 
+        scheme,
+        majorPremise,
+        minorPremise,
+        conclusion, 
         createdAt,
         userScore, 
         argumentCount, 
@@ -105,8 +108,18 @@ function PostPage(props) {
                             Arguments: {argumentCount}
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
+                        <Typography variant="h5">
+                            <b>{title}</b>
+                        </Typography>
+                        <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body1">
-                            {title}
+                            <b>Major Premise:</b> {majorPremise}
+                        </Typography>
+                        <Typography variant="body1">
+                            <b>Minor Premise:</b> {minorPremise}
+                        </Typography>
+                        <Typography variant="body1">
+                            <b>Conclusion:</b> {conclusion}
                         </Typography>
                         <VoteButtons postId={postId} userScore={userScore} />
                     </Grid>

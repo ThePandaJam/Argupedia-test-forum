@@ -111,7 +111,10 @@ function NewPostForm(props) {
         e.preventDefault();
         const postData = {
             title: title,
-            scheme: name
+            scheme: name,
+            majorPremise: majPremise,
+            minorPremise: minPremise,
+            conclusion: conc
         }
         dispatch(createPost(postData, history))
     }
