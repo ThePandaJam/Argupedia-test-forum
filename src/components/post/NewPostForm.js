@@ -45,25 +45,64 @@ function NewPostForm(props) {
     const dispatch = useDispatch();
     const { uiLoading, uiErrors } = useSelector((state) => state.UI);
     const [errors, setErrors] = useState([])
-    //change to set title
+    //title
     const [title, setTitle] = useState("")
-    // add scheme + setter
-    const [scheme, setScheme] = useState("")
-    // add scheme form based on the chosen scheme (similar to update user data)
+    //major and minor premises and conclusion
+    const [majPremise, setMajPremise] = useState('')
+    const [minPremise, setMinPremise] = useState('')
+    const [conc, setConc] = useState('')
+
     const history = useHistory()
     
     useEffect(() => {
         if(uiErrors) {
             setErrors(uiErrors)
         }
-    }, [uiErrors]);
+        if(majorPremise,
+            minorPremise,
+            conclusion) {
+            mapSchemeDetailsToState(majorPremise,
+                minorPremise,
+                conclusion)
+        }
+    }, [uiErrors, majorPremise,
+        minorPremise,
+        conclusion]);
+
+    function mapSchemeDetailsToState(majorPremise,
+        minorPremise,
+        conclusion) {
+        if(majorPremise){
+            setMajPremise(majorPremise)
+        } else {
+            setMajPremise('')
+        }
+
+        if(minorPremise){
+            setMinPremise(minorPremise)
+        } else {
+            setMinPremise('')
+        }
+
+        if(conclusion){
+            setConc(conclusion)
+        } else {
+            setConc('')
+        }
+    }
 
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
         if (name === "title") {
           setTitle(value);
-        } else if (name === "scheme") {
-            setScheme(value);
+        }else if (name === "majPremise") {
+            setMajPremise(value);
+        }
+        else if (name === "minPremise") {
+            setMinPremise(value);
+        }
+        else if (name === "conc") {
+            setConc(value);
         }
       }
       
@@ -94,15 +133,63 @@ function NewPostForm(props) {
                         value={title} 
                         onChange = {(event) => onChangeHandler(event)} 
                         fullWidth />
-                        <FormControl 
-                            disabled 
-                            fullWidth 
-                            className={classes.textField}
-                        > 
-                            <InputLabel htmlFor="component-disabled">Argument scheme</InputLabel>
-                            <Input id="component-disabled" value={name ? name : ''}/>
-                            <FormHelperText error={name ? false : true}>Select a scheme from the list</FormHelperText>
-                        </FormControl>
+                    <FormControl 
+                        disabled 
+                        fullWidth 
+                        className={classes.textField}
+                    > 
+                        <InputLabel htmlFor="component-disabled">Argument scheme</InputLabel>
+                        <Input id="scheme" value={name ? name : ''}/>
+                        <FormHelperText error={name ? false : true}>Select a scheme from the list</FormHelperText>
+                    </FormControl>
+                    <Typography variant="h5" className={classes.pageTitle}>
+                        Add your first argument
+                    </Typography>
+                    <FormControl
+                        fullWidth
+                        className={classes.textField}
+                    >
+                        <InputLabel htmlFor="component-simple">Major Premise</InputLabel>
+                        <Input 
+                            id="majorPremise"
+                            name="majPremise"
+                            multiline
+                            rows="4" 
+                            value={majPremise} 
+                            onChange={onChangeHandler} 
+                        />
+                        <FormHelperText error={errors.title ? false : true}>{errors.title}</FormHelperText>
+                    </FormControl>
+                    <FormControl
+                        fullWidth
+                        className={classes.textField}
+                    >
+                        <InputLabel htmlFor="component-simple">Minor Premise</InputLabel>
+                        <Input 
+                            id="minorPremise"
+                            name="minPremise"
+                            multiline
+                            rows="4" 
+                            value={minPremise} 
+                            onChange={onChangeHandler} 
+                        />
+                        <FormHelperText error={errors.title ? false : true}>{errors.title}</FormHelperText>
+                    </FormControl>
+                    <FormControl
+                        fullWidth
+                        className={classes.textField}
+                    >
+                        <InputLabel htmlFor="component-simple">Conclusion</InputLabel>
+                        <Input 
+                            id="conclusion"
+                            name="conc"
+                            multiline
+                            rows="4" 
+                            value={conc} 
+                            onChange={onChangeHandler} 
+                        />
+                        <FormHelperText error={errors.title ? false : true}>{errors.title}</FormHelperText>
+                    </FormControl>
                     {errors.general && (
                         <Typography variant="body2" className={classes.customError}>
                             {errors.general}
