@@ -1,21 +1,19 @@
 // based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/PostScream.js
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 //MUI imports 
+import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid'
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';import withStyles from '@material-ui/core/styles/withStyles';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getSchemes } from '../redux/actions/dataActions';
 import NewPostForm from '../components/post/NewPostForm';
-import { Button } from '@material-ui/core';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -54,7 +52,6 @@ function PostCreation(props) {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(newValue)
         setChosenScheme(schemes[newValue])
       };
 

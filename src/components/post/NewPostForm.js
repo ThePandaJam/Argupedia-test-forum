@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 //MUI imports 
 import TextField from '@material-ui/core/TextField';
@@ -94,22 +94,15 @@ function NewPostForm(props) {
                         value={title} 
                         onChange = {(event) => onChangeHandler(event)} 
                         fullWidth />
-                    {/* {schemeId ? (
-                        <Typography variant="body1">Select a scheme from the list to begin</Typography>
-                        ) : ( */}
                         <FormControl 
                             disabled 
                             fullWidth 
                             className={classes.textField}
-
                         > 
                             <InputLabel htmlFor="component-disabled">Argument scheme</InputLabel>
                             <Input id="component-disabled" value={name ? name : ''}/>
                             <FormHelperText error={name ? false : true}>Select a scheme from the list</FormHelperText>
-
                         </FormControl>
-                         {/* )
-                        } */}
                     {errors.general && (
                         <Typography variant="body2" className={classes.customError}>
                             {errors.general}
