@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import MyButton from '../../util/MyButton';
 import DeletePostButton from './DeletePostButton';
-import VoteButtons from './VoteButtons';
 
 //redux
 import { useSelector } from 'react-redux';
@@ -13,6 +12,8 @@ import { useSelector } from 'react-redux';
 //icons
 import ChatIcon from '@material-ui/icons/Chat'
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
+import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
+
 
 //MUI general imports
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -83,9 +84,12 @@ function Post(props) {
                 <Typography variant="h5" color="primary" component={Link} to={`/users/${userHandle}`}>{userHandle}</Typography>
                 {authenticated && userHandle === handle && <DeletePostButton postId={postId}/>}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
-                <Typography variant="body1">{title}</Typography>
+                <Typography variant="h5">{title}</Typography>
                 <Typography variant="body2" color="textSecondary">{scheme}</Typography>
-                <VoteButtons postId={postId} userScore={userScore} />
+                <MyButton tip="Points">
+                    <ThumbsUpDownIcon color="primary" />
+                </MyButton>
+                <span>{userScore} {userScore === 1 ? 'point' : 'points'} </span>
                 <MyButton tip="Arguments">
                     <ChatIcon color="primary" />
                 </MyButton>
