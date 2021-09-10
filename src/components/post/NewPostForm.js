@@ -112,6 +112,7 @@ function NewPostForm(props) {
         const postData = {
             title: title,
             scheme: name,
+            schemeId: schemeId,
             majorPremise: majPremise,
             minorPremise: minPremise,
             conclusion: conc

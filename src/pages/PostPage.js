@@ -58,6 +58,7 @@ function PostPage(props) {
         postId, 
         title,
         scheme,
+        schemeId,
         majorPremise,
         minorPremise,
         conclusion, 
