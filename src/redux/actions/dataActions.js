@@ -1,8 +1,9 @@
 // based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/redux/actions/dataActions.js
 import {
     SET_POSTS,
-    SET_SCHEMES,
     SET_POST, 
+    SET_SCHEMES,
+    SET_SCHEME_INFO,
     CREATE_POST, 
     LOADING_DATA, 
     UPVOTE_POST, 
@@ -40,6 +41,20 @@ export const getPosts = () => (dispatch) => {
         })
 }
 
+//get one post
+export const getPost = (postId) => (dispatch) => {
+    dispatch({ type: LOADING_UI});
+    axios.get(`/post/${postId}`)
+        .then(res => {
+            dispatch({
+                type: SET_POST,
+                payload: res.data
+            });
+            dispatch({ type: STOP_LOADING_UI})
+        })
+        .catch(err => console.log(err));
+}
+
 //get all schemes
 export const getSchemes = () => (dispatch) => {
     dispatch({type: LOADING_DATA});
@@ -58,18 +73,22 @@ export const getSchemes = () => (dispatch) => {
         })
 }
 
-//get one post
-export const getPost = (postId) => (dispatch) => {
-    dispatch({ type: LOADING_UI});
-    axios.get(`/post/${postId}`)
+//get scheme and critical questions for one post
+export const getSchemeInfo = (schemeId) => (dispatch) => {
+    dispatch({type: LOADING_DATA});
+    axios.get(`/schemeData/${schemeId}`)
         .then(res => {
             dispatch({
-                type: SET_POST,
+                type: SET_SCHEME_INFO,
                 payload: res.data
-            });
-            dispatch({ type: STOP_LOADING_UI})
+            })
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            dispatch({
+                type: SET_SCHEME_INFO,
+                payload:[]
+            })
+        })
 }
 
 //make a post

@@ -48,7 +48,7 @@ function PostCreation(props) {
 
     useEffect(() => {
         dispatch(getSchemes());
-    }, []);
+    }, [dispatch]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

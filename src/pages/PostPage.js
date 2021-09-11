@@ -73,7 +73,7 @@ function PostPage(props) {
 
     useEffect(() => {
         dispatch(getPost(currentPostId))
-    }, [currentPostId])
+    }, [dispatch, currentPostId])
 
 
     return (
@@ -127,7 +127,7 @@ function PostPage(props) {
                     <hr className={classes.commentSeparator}/>
                     <Typography variant="h4" color="primary">Arguments:</Typography>
                     <hr className={classes.visibleSeparator}/>
-                    <CommentForm postId={postId}/>
+                    <CommentForm postId={postId} schemeId={schemeId}/>
                     <Comments comments={comments}/>
                 </Grid>
                 )

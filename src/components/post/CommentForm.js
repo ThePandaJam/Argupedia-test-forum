@@ -6,11 +6,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 //redux imports
 import { useDispatch, useSelector } from 'react-redux';
 
-import { submmitComment } from '../../redux/actions/dataActions';
+import { getSchemeInfo, submmitComment } from '../../redux/actions/dataActions';
+import { Typography } from '@material-ui/core';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -22,7 +25,8 @@ function CommentForm(props) {
     const { classes } = props
     const {  uiLoading, uiErrors } = useSelector((state) => state.UI);
     const { authenticated } = useSelector((state) => state.user);
-    const { postId } = useSelector((state) => state.data.post);
+    const { postId, schemeId, loading } = useSelector((state) => state.data.post);
+    const { schemeInfo } = useSelector((state) => state.data);
 
     const [errors, setErrors] = useState([])
     const [body, setBody] = useState("")
@@ -32,6 +36,10 @@ function CommentForm(props) {
             setErrors(uiErrors)
         }
     }, [uiErrors]);
+    
+    useEffect(() => {
+        dispatch(getSchemeInfo(schemeId));
+    }, [dispatch, schemeId]);
     
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
@@ -52,8 +60,17 @@ function CommentForm(props) {
     return (
         <Fragment>
             {authenticated 
-                ? (
-                    <Grid item sm={12} style={{textAlign:'center'}}>
+                ? ( 
+                    loading ? (
+                        <Grid item sm={12} style={{textAlign:'center'}}>
+                            <CircularProgress size={30}/>
+                            <Typography variant="h4">Loading scheme data...</Typography>
+                        </Grid>
+                    ) : (
+                        <Grid item sm={12} style={{alignContent:'center'}}>
+                        {schemeInfo.criticalQuestions.map((question) => (
+                                <Typography key={question.questionNo} variant="body1">{question.questionBody}</Typography>
+                            ))}
                         <form onSubmit={handleSubmit}>
                             <TextField
                                 name="body"
@@ -77,8 +94,8 @@ function CommentForm(props) {
                         </form>
                         <hr className={classes.visibleSeparator}/>
                     </Grid>
-                )
-                : (
+                    )
+                ) : (
                     null
                 )
             }
