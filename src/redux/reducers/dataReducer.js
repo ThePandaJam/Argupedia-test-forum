@@ -22,7 +22,10 @@ const initialState = {
     posts: [],
     schemes:[],
     post: {},
-    schemeInfo: {},
+    schemeInfo: {
+        premisesAndConclusion: {},
+        criticalQuestions:[]
+    },
     comment: {},
     loading: true
 };
