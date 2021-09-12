@@ -1,5 +1,5 @@
 // based on https://github.com/hidjou/classsed-react-firebase-client/blob/master/src/components/scream/CommentForm.js
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect, useCallback } from 'react'
 
 //MUI imports
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -30,12 +30,12 @@ const styles = (theme) => ({
 
 function CommentForm(props) {
     const dispatch = useDispatch()
-    const { classes } = props
+    const { classes, schemeId } = props
     const {  uiLoading, uiErrors } = useSelector((state) => state.UI);
     const { authenticated } = useSelector((state) => state.user);
-    const { postId, schemeId, loading } = useSelector((state) => state.data.post);
-    const { schemeInfo } = useSelector((state) => state.data);
-
+    const { postId } = useSelector((state) => state.data.post);
+    const { schemeInfo, loading } = useSelector((state) => state.data)
+    
     const [errors, setErrors] = useState([])
     const [body, setBody] = useState("")
     const [critQuestion, setCritQuestion] = useState("")
@@ -47,8 +47,10 @@ function CommentForm(props) {
     }, [uiErrors]);
     
     useEffect(() => {
-        dispatch(getSchemeInfo(schemeId));
-    }, [dispatch, schemeId]);
+        if(schemeId){
+            dispatch(getSchemeInfo(schemeId));
+        }
+    }, []);
     
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
@@ -94,7 +96,7 @@ function CommentForm(props) {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                {schemeInfo.criticalQuestions.map((question) => (
+                                {schemeInfo && schemeInfo.criticalQuestions.map((question) => (
                                     <MenuItem key={question.questionNo} value={question.questionBody}>{question.questionBody}</MenuItem>
                                 ))}
                                 </Select>

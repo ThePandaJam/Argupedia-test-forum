@@ -24,7 +24,7 @@ const initialState = {
     post: {},
     schemeInfo: {},
     comment: {},
-    loading: false
+    loading: true
 };
 
 export default function dataReducer(state = initialState, action){
@@ -46,18 +46,18 @@ export default function dataReducer(state = initialState, action){
                 schemes: action.payload,
                 loading: false
             };
+        case SET_POST:
+            return{
+                ...state,
+                post: action.payload,
+                //loading: false
+            };
         case SET_SCHEME_INFO:
             return{
                 ...state,
                 schemeInfo: action.payload,
                 loading: false
             }
-        case SET_POST:
-            return{
-                ...state,
-                post: action.payload,
-                loading: false
-            };
         case UPVOTE_POST:
         case UNUPVOTE_POST:
         case DOWNVOTE_POST:
