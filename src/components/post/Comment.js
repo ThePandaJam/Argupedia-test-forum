@@ -22,7 +22,10 @@ const styles = (theme) => ({
     },
     commentData: {
         marginLeft: 40,
-        marginBottom: 10
+        marginBottom: 10,
+        whiteSpace: 'pre-wrap'
+        //wordBreak: 'normal'
+        
     }
 })
 

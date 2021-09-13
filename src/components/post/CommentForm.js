@@ -145,7 +145,7 @@ function CommentForm(props) {
         e.preventDefault();
         if (responseType === "undercut") {
             let compoundBody = "CQ" + questionId + ": " 
-                + adaptedQuestion + "\n Response: " + body
+                + adaptedQuestion + "\n\nResponse: " + body
             const commentData = {
                 schemeId: schemeId,
                 questionNo: questionId,
@@ -155,7 +155,7 @@ function CommentForm(props) {
         }
         if (responseType === "rebuttal") {
             let compoundBody = "Major Premise: " + majPremise 
-                + "\n Minor Premise: " + minPremise + "\n Conclusion: " + conc
+                + "\n\nMinor Premise: " + minPremise + "\n\nConclusion: " + conc
             const commentData = {
                 schemeId: schemeId,
                 questionNo: questionId,
