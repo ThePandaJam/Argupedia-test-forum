@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import CommentVoteButtons from './CommentVoteButtons'
+import MyButton from '../../util/MyButton';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
+
+//icons
+import ReplyIcon from '@material-ui/icons/Reply';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -21,15 +25,24 @@ const styles = (theme) => ({
         marginLeft: 30
     },
     commentData: {
-        marginLeft: 40,
-        marginBottom: 10,
-        whiteSpace: 'pre-wrap'
-    }
+
+        margin: '0px 10px 40px 20px',
+        width: '90%',
+        objectFit: 'cover',
+        whiteSpace: 'pre-wrap',
+    },
+    replyButton: {
+        position: 'absolute',
+        textAlign: 'right',
+        right: 0,
+        marginRight: '60px',
+    },
 })
 
 function Comment(props) {
     const {
         user: {
+            authenticated,
             commentUpvotes,
             commentDownvotes
         },
@@ -68,7 +81,21 @@ function Comment(props) {
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body1">{body}</Typography>
-                        <CommentVoteButtons argumentId={argumentId} argumentScore={argumentScore} />
+                        <Grid container>
+                            <Grid item sm={8}>
+                                <CommentVoteButtons argumentId={argumentId} argumentScore={argumentScore} />
+                            </Grid>
+                            <Grid item sm={1} className={classes.replyButton}>
+                                {authenticated ? (
+                                    <MyButton tip="Reply">
+                                        <ReplyIcon color="primary" />
+                                    </MyButton>
+                                    ) : (
+                                        null
+                                    )
+                                }
+                            </Grid>
+                        </Grid>
                     </div>
                 </Grid>
             </Grid>
