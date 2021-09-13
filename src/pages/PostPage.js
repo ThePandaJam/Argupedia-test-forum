@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getPost } from '../redux/actions/dataActions';
+import { getPost, getSchemeInfo } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -56,7 +56,12 @@ function PostPage(props) {
 
     const { 
         postId, 
-        body, 
+        title,
+        scheme,
+        schemeId,
+        majorPremise,
+        minorPremise,
+        conclusion, 
         createdAt,
         userScore, 
         argumentCount, 
@@ -64,7 +69,7 @@ function PostPage(props) {
         userHandle, 
         comments
     } = useSelector((state) => state.data.post);  
-    const { UI: { loading } } = useSelector((state) => state);
+    const { UI: { uiLoading } } = useSelector((state) => state);
 
     useEffect(() => {
         dispatch(getPost(currentPostId))
@@ -73,7 +78,7 @@ function PostPage(props) {
 
     return (
         <Fragment>
-            {loading 
+            {uiLoading 
             ? (<div className={classes.spinnerDiv}>
                     <CircularProgress size={200} thickness={2}/>
                     <Typography variant="h4">Loading post...</Typography>
@@ -98,21 +103,31 @@ function PostPage(props) {
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body2" color="textSecondary">
-                            Post score: {userScore} points
+                            Scheme: {scheme}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
                             Arguments: {argumentCount}
                         </Typography>
                         <hr className={classes.invisibleSeparator}/>
+                        <Typography variant="h5">
+                            <b>{title}</b>
+                        </Typography>
+                        <hr className={classes.invisibleSeparator}/>
                         <Typography variant="body1">
-                            {body}
+                            <b>Major Premise:</b> {majorPremise}
+                        </Typography>
+                        <Typography variant="body1">
+                            <b>Minor Premise:</b> {minorPremise}
+                        </Typography>
+                        <Typography variant="body1">
+                            <b>Conclusion:</b> {conclusion}
                         </Typography>
                         <VoteButtons postId={postId} userScore={userScore} />
                     </Grid>
                     <hr className={classes.commentSeparator}/>
                     <Typography variant="h4" color="primary">Arguments:</Typography>
                     <hr className={classes.visibleSeparator}/>
-                    <CommentForm postId={postId}/>
+                    {schemeId && <CommentForm postId={postId} postSchemeId={schemeId}/>}
                     <Comments comments={comments}/>
                 </Grid>
                 )
