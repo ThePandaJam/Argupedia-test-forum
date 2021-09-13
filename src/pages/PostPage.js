@@ -127,7 +127,7 @@ function PostPage(props) {
                     <hr className={classes.commentSeparator}/>
                     <Typography variant="h4" color="primary">Arguments:</Typography>
                     <hr className={classes.visibleSeparator}/>
-                    {schemeId && <CommentForm postId={postId} schemeId={schemeId}/>}
+                    {schemeId && <CommentForm postId={postId} postSchemeId={schemeId}/>}
                     <Comments comments={comments}/>
                 </Grid>
                 )
