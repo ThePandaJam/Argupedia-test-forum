@@ -197,7 +197,8 @@ function CommentForm(props) {
                                         name="critQuestion"
                                         id="demo-simple-select"
                                         value={critQuestion}
-                                        onChange={dropdownHandler} 
+                                        onChange={dropdownHandler}
+                                        required
                                         >
                                             <MenuItem value="" onClick={() => setQuestionId(0)}>
                                                 <em>None</em>
