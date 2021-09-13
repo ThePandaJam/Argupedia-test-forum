@@ -24,8 +24,6 @@ const styles = (theme) => ({
         marginLeft: 40,
         marginBottom: 10,
         whiteSpace: 'pre-wrap'
-        //wordBreak: 'normal'
-        
     }
 })
 
