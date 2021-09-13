@@ -43,6 +43,7 @@ function CommentForm(props) {
     const [errors, setErrors] = useState([])
     const [body, setBody] = useState("")
     const [critQuestion, setCritQuestion] = useState("")
+    const [questionId, setQuestionId] = useState(0)
 
     useEffect(() => {
         if(uiErrors) {
@@ -62,6 +63,7 @@ function CommentForm(props) {
           setBody(value);
         }
       }
+
     const dropdownHandler = (event) => {
         setCritQuestion(event.target.value)
         setBody(event.target.value)
@@ -70,9 +72,13 @@ function CommentForm(props) {
       function handleSubmit(e) {
         e.preventDefault();
         const commentData = {
+            schemeId: schemeInfo.schemeId,
+            questionNo: questionId,
             body: body
         }
         dispatch(submmitComment(postId, commentData))
+        setQuestionId(0)
+        setCritQuestion("")
         setBody("")
     }
 
@@ -97,7 +103,7 @@ function CommentForm(props) {
                                 value={critQuestion}
                                 onChange={dropdownHandler} 
                                 >
-                                    <MenuItem value="">
+                                    <MenuItem value="" onClick={() => setQuestionId(0)}>
                                         <em>None</em>
                                     </MenuItem>
                                 {schemeInfo && schemeInfo.criticalQuestions.map((question) => (
@@ -105,11 +111,14 @@ function CommentForm(props) {
                                         className={classes.dropdownItem} 
                                         key={question.questionNo} 
                                         value={question.questionBody}
+                                        //name={question.questionNo}
+                                        onClick={() => setQuestionId(question.questionNo)}
                                         >
                                             CQ{question.questionNo}: {question.questionBody}
                                     </MenuItem>
                                 ))}
                                 </Select>
+                                <FormHelperText error={questionId === 0 ? true : false}>Select a Critical Question</FormHelperText>
                             </FormControl>
                             <TextField
                                 name="body"
