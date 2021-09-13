@@ -25,6 +25,10 @@ const styles = (theme) => ({
     criticalQuestionDropdown: {
         width: '100%',
         margin: '10px auto 10px auto'
+    },
+    dropdownItem: {
+        whiteSpace: 'unset',
+        wordBreak: 'normal'
     }
 })
 
@@ -97,7 +101,13 @@ function CommentForm(props) {
                                         <em>None</em>
                                     </MenuItem>
                                 {schemeInfo && schemeInfo.criticalQuestions.map((question) => (
-                                    <MenuItem key={question.questionNo} value={question.questionBody}>{question.questionBody}</MenuItem>
+                                    <MenuItem 
+                                        className={classes.dropdownItem} 
+                                        key={question.questionNo} 
+                                        value={question.questionBody}
+                                        >
+                                            CQ{question.questionNo}: {question.questionBody}
+                                    </MenuItem>
                                 ))}
                                 </Select>
                             </FormControl>
