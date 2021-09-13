@@ -63,6 +63,7 @@ function CommentForm(props) {
     const [responseType, setResponseType] = useState("undercut")
     //for undercuts
     const [critQuestion, setCritQuestion] = useState("")
+    const [adaptedQuestion, setAdaptedQuestion] = useState("")
     const [questionId, setQuestionId] = useState(0)
     //for rebuttals
     const [majPremise, setMajPremise] = useState('')
@@ -116,7 +117,9 @@ function CommentForm(props) {
 
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
-        if (name === "body") {
+         if (name === "adaptedQuestion") {
+            setAdaptedQuestion(value);
+        }else if (name === "body") {
           setBody(value);
         }else if (name === "majPremise") {
             setMajPremise(value);
@@ -131,7 +134,7 @@ function CommentForm(props) {
 
     const dropdownHandler = (event) => {
         setCritQuestion(event.target.value)
-        setBody(event.target.value)
+        setAdaptedQuestion(event.target.value)
     }
 
     const radioHandler = (event) => {
@@ -141,16 +144,18 @@ function CommentForm(props) {
       function handleSubmit(e) {
         e.preventDefault();
         if (responseType === "undercut") {
+            let compoundBody = "CQ" + questionId + ": " 
+                + adaptedQuestion + "\n Response: " + body
             const commentData = {
                 schemeId: schemeId,
                 questionNo: questionId,
-                body: body
+                body: compoundBody
             }
             dispatch(submmitComment(postId, commentData))
         }
         if (responseType === "rebuttal") {
             let compoundBody = "Major Premise: " + majPremise 
-                + "\n Minor Premise : " + minPremise + "\n Conclusion: " + conc
+                + "\n Minor Premise: " + minPremise + "\n Conclusion: " + conc
             const commentData = {
                 schemeId: schemeId,
                 questionNo: questionId,
@@ -202,7 +207,6 @@ function CommentForm(props) {
                                                 className={classes.dropdownItem} 
                                                 key={question.questionNo} 
                                                 value={question.questionBody}
-                                                //name={question.questionNo}
                                                 onClick={() => setQuestionId(question.questionNo)}
                                                 >
                                                     CQ{question.questionNo}: {question.questionBody}
@@ -212,14 +216,29 @@ function CommentForm(props) {
                                         <FormHelperText error={questionId === 0 ? true : false}>Select a Critical Question</FormHelperText>
                                     </FormControl>
                                     <TextField
+                                        name="adaptedQuestion"
+                                        type="text"
+                                        label="Adapt the critical question"
+                                        error={errors.comment ? true : false}
+                                        helperText={errors.comment}
+                                        value={adaptedQuestion} 
+                                        onChange = {(event) => onChangeHandler(event)} 
+                                        fullWidth
+                                        multiline
+                                        rows="4" 
+                                        required
+                                        className={classes.textField} />
+                                    <TextField
                                         name="body"
                                         type="text"
-                                        label="Add an argument"
+                                        label="Add a response (optional)"
                                         error={errors.comment ? true : false}
                                         helperText={errors.comment}
                                         value={body} 
                                         onChange = {(event) => onChangeHandler(event)} 
                                         fullWidth
+                                        multiline
+                                        rows="4" 
                                         className={classes.textField} />
                                     </>
                                 ) : ( 
@@ -235,7 +254,8 @@ function CommentForm(props) {
                                             multiline
                                             rows="4" 
                                             value={majPremise} 
-                                            onChange={onChangeHandler} 
+                                            onChange={onChangeHandler}
+                                            required 
                                         />
                                         <FormHelperText error={errors.title ? false : true}>{errors.title}</FormHelperText>
                                     </FormControl>
@@ -250,7 +270,8 @@ function CommentForm(props) {
                                             multiline
                                             rows="4" 
                                             value={minPremise} 
-                                            onChange={onChangeHandler} 
+                                            onChange={onChangeHandler}
+                                            required 
                                         />
                                         <FormHelperText error={errors.title ? false : true}>{errors.title}</FormHelperText>
                                     </FormControl>
@@ -266,6 +287,7 @@ function CommentForm(props) {
                                             rows="4" 
                                             value={conc} 
                                             onChange={onChangeHandler} 
+                                            required
                                         />
                                         <FormHelperText error={errors.title ? false : true}>{errors.title}</FormHelperText>
                                     </FormControl>
