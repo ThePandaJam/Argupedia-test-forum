@@ -21,6 +21,7 @@ import AuthRoute from './util/AuthRoute'
 import ProtectedRoute from './util/ProtectedRoute';
 import axios from 'axios';
 import PostPage from './pages/PostPage';
+import ArgupediaLearn from './pages/ArgupediaLearn';
 
 const theme = createTheme(themeFile);
 
@@ -53,6 +54,7 @@ function App() {
               <ProtectedRoute exact path="/createPost" component={PostCreation}/>
               <Route exact path="/users/:userHandle" component={UserPage} />
               <Route exact path="/posts/:currentPostId" component={PostPage} />
+              <Route exact path="/ArgupediaLearn" component={ArgupediaLearn} />
             </Switch>
           </div>
         </Router>
