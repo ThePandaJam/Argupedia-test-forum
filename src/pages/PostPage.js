@@ -48,10 +48,7 @@ const styles = (theme) => ({
         marginTop: 20
     },
     replyButton: {
-        position: 'absolute',
         textAlign: 'right',
-        right: 0,
-        marginRight: '60px',
     },
 })
 

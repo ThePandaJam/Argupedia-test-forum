@@ -31,10 +31,7 @@ const styles = (theme) => ({
         whiteSpace: 'pre-wrap',
     },
     replyButton: {
-        position: 'absolute',
         textAlign: 'right',
-        right: 0,
-        marginRight: '60px',
     },
 })
 
