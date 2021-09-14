@@ -157,6 +157,7 @@ function CommentForm(props) {
                 + adaptedQuestion + "\n\nResponse: " + body
             const commentData = {
                 schemeId: schemeId,
+                respondingTo: respondingToId,
                 questionNo: questionId,
                 body: compoundBody
             }
