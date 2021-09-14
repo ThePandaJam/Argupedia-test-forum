@@ -28,7 +28,7 @@ const initialState = {
         criticalQuestions:[]
     },
     comment: {
-        respondingToId: ""
+        respondingToId: "Original-post"
     },
     loading: true
 };

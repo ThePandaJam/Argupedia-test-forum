@@ -24,7 +24,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 //redux imports
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getSchemeInfo, submmitComment } from '../../redux/actions/dataActions';
+import { getSchemeInfo, submmitComment, setCommentResponse } from '../../redux/actions/dataActions';
 import { Typography } from '@material-ui/core';
 
 const styles = (theme) => ({
@@ -36,6 +36,14 @@ const styles = (theme) => ({
     dropdownItem: {
         whiteSpace: 'unset',
         wordBreak: 'normal'
+    },
+    responseIdField: {
+        margin: '10px auto 10px auto',
+        width: '30%',
+    },
+    resetButton: {
+        position: 'relative',
+        margin: '40px auto 10px auto',
     }
 })
 
@@ -55,6 +63,7 @@ function CommentForm(props) {
             },
             criticalQuestions
         }, 
+        comment: {respondingToId},
         loading 
     } = useSelector((state) => state.data)
     
@@ -141,7 +150,7 @@ function CommentForm(props) {
         setResponseType(event.target.value)
     }
     
-      function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         if (responseType === "undercut") {
             let compoundBody = "CQ" + questionId + ": " 
@@ -169,6 +178,12 @@ function CommentForm(props) {
         setBody("")
     }
 
+    function resetResponseId(){
+        //set id to the comment selected for response
+        dispatch(setCommentResponse("Original-post")) 
+        console.log("responding to comment id: "+ "Original-post")
+    }
+
     return (
         <Fragment>
             {authenticated 
@@ -182,6 +197,23 @@ function CommentForm(props) {
                         <Grid item sm={12} style={{alignContent:'center'}}>
                         
                             <form onSubmit={handleSubmit}>
+                                <FormControl 
+                                    className={classes.responseIdField}
+                                    variant="filled"
+                                > 
+                                    <FormLabel htmlFor="component-disabled">Responding to: </FormLabel>
+                                    <Input id="responseId" disabled value={respondingToId}/>
+                                    
+                                </FormControl>
+                                <Button 
+                                        variant="contained" 
+                                        color="primary" 
+                                        className={classes.resetButton}
+                                        onClick = {resetResponseId}
+                                    >
+                                        Reset
+                                    </Button>
+                                <hr className={classes.invisibleSeparator}/>
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">Type of response</FormLabel>
                                     <RadioGroup row aria-label="response-type" name="responseType" value={responseType} onChange={radioHandler}>
@@ -299,7 +331,6 @@ function CommentForm(props) {
                                     type="submit" 
                                     variant="contained" 
                                     color="primary" 
-                                    className={classes.submitButton}
                                     disabled={uiLoading}
                                 >
                                     Create argument
