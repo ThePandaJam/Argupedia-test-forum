@@ -14,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getPost, getSchemeInfo } from '../redux/actions/dataActions';
+import ReplyButton from '../components/post/ReplyButton';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -45,6 +46,12 @@ const styles = (theme) => ({
         border: 'none',
         width: '100%',
         marginTop: 20
+    },
+    replyButton: {
+        position: 'absolute',
+        textAlign: 'right',
+        right: 0,
+        marginRight: '60px',
     },
 })
 
@@ -122,7 +129,15 @@ function PostPage(props) {
                         <Typography variant="body1">
                             <b>Conclusion:</b> {conclusion}
                         </Typography>
-                        <VoteButtons postId={postId} userScore={userScore} />
+                        <Grid container>
+                            <Grid item sm={8}>
+                                <VoteButtons postId={postId} userScore={userScore} />
+                            </Grid>
+                            <Grid item sm={1} className={classes.replyButton}>
+                                <ReplyButton responseId="Original-post" />
+                            </Grid>
+                        </Grid>
+                        
                     </Grid>
                     <hr className={classes.commentSeparator}/>
                     <Typography variant="h4" color="primary">Arguments:</Typography>
