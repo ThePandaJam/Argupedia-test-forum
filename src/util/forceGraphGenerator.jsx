@@ -4,10 +4,10 @@ import * as d3 from "d3";
 import styles from './forceGraph.css';
 
 export function runForceGraph(
-  container,
-  linksData,
-  nodesData,
-  nodeHoverTooltip
+    container,
+    linksData,
+    nodesData,
+    nodeHoverTooltip
 ) {
   const links = linksData.map((d) => Object.assign({}, d));
   const nodes = nodesData.map((d) => Object.assign({}, d));
@@ -82,7 +82,7 @@ export function runForceGraph(
   const svg = d3
     .select(container)
     .append("svg")
-    .attr("viewBox", [-width / 2, -height / 2, width, height])
+    .attr("viewBox", [0, 0, width, height])
     .call(d3.zoom().on("zoom", function (event) {
       svg.attr("transform", event.transform);
     }));
@@ -94,7 +94,7 @@ export function runForceGraph(
     .selectAll("line")
     .data(links)
     .join("line")
-    .attr("stroke-width", d => Math.sqrt(d.value));
+    .attr("stroke-width", 2);
 
   const node = svg
     .append("g")

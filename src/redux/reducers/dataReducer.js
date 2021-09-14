@@ -22,7 +22,12 @@ import {
 const initialState = {
     posts: [],
     schemes:[],
-    post: {},
+    post: {
+        graphData: {
+            nodes: [],
+            links: []
+        },
+    },
     schemeInfo: {
         premisesAndConclusion: {},
         criticalQuestions:[]
@@ -56,7 +61,6 @@ export default function dataReducer(state = initialState, action){
             return{
                 ...state,
                 post: action.payload,
-                //loading: false
             };
         case SET_SCHEME_INFO:
             return{

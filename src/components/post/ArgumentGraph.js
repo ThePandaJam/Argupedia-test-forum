@@ -1,33 +1,29 @@
 import React, { useCallback } from 'react'
 import { ForceGraph } from '../../util/forceGraph';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 //redux imports
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ArgumentGraph() {
-    const data = {
-        nodes: [
-          { id: "Harry", color: "red", size: 600 },
-          { id: "Sally" },
-          { id: "Alice" }
-        ],
-        links: [
-          { source: "Harry", target: "Sally" },
-          { source: "Harry", target: "Alice" }
-        ]
-      };
+    const {graphData: {
+        nodes,
+        links
+    }} = useSelector((state) => state.data.post)
     
       const nodeHoverTooltip = useCallback((node) => {
         return `<div>${node.id}</div>`;
       }, []);
 
     return (
-        <div>
+        nodes === [] ? (
+            <div>Loading graph...</div>
+        ) : (
             <ForceGraph
-                linksData={data.links}
-                nodesData={data.nodes}
+                linksData={links}
+                nodesData={nodes}
                 nodeHoverTooltip={nodeHoverTooltip}
             />
-        </div>
+        )     
     )
 }
