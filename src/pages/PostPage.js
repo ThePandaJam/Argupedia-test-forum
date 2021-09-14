@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPost, getSchemeInfo } from '../redux/actions/dataActions';
 import ReplyButton from '../components/post/ReplyButton';
+import ArgumentGraph from '../components/post/ArgumentGraph';
 
 const styles = (theme) => ({
     ...theme.loginSignupStyle,
@@ -92,6 +93,8 @@ function PostPage(props) {
                 </div>
                 )
             : (<Grid container spacing={2} className={classes.postPageContent}>
+                    <ArgumentGraph />
+                    <hr className={classes.visibleSeparator}/>
                     <Grid item sm={3}>
                         <img src={userImage} alt="profile" className={classes.profileImage} />
                     </Grid>
