@@ -19,7 +19,8 @@ import {
     UPVOTE_COMMENT,
     UNUPVOTE_COMMENT,
     DOWNVOTE_COMMENT,
-    UNDOWNVOTE_COMMENT
+    UNDOWNVOTE_COMMENT,
+    RESPOND_TO_COMMENT
 } from '../types';
 import axios from 'axios';
 
@@ -233,6 +234,14 @@ export const unDownvoteArgument = (argumentId) => (dispatch) => {
             })
         })
         .catch(err => console.log(err));
+}
+
+//set comment id to the one selected for response
+export const setCommentResponse = (argumentId) => (dispatch) => {
+    dispatch({
+        type: RESPOND_TO_COMMENT,
+        payload: argumentId
+    })
 }
 
 //get user profile information
