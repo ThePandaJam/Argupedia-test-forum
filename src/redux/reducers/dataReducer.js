@@ -14,6 +14,7 @@ import {
     UNUPVOTE_COMMENT,
     DOWNVOTE_COMMENT,
     UNDOWNVOTE_COMMENT,
+    RESPOND_TO_COMMENT,
     SET_SCHEMES,
     SET_SCHEME_INFO
 } from "../types";
@@ -26,7 +27,9 @@ const initialState = {
         premisesAndConclusion: {},
         criticalQuestions:[]
     },
-    comment: {},
+    comment: {
+        respondingToId: ""
+    },
     loading: true
 };
 
@@ -113,6 +116,14 @@ export default function dataReducer(state = initialState, action){
                 }
             return{
                 ...state
+            }
+        case RESPOND_TO_COMMENT:
+            return{
+                ...state,
+                comment: {
+                    //...state.comment,
+                    respondingToId: action.payload
+                }
             }
         default:
             return state;

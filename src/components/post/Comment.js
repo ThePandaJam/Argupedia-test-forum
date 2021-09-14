@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import CommentVoteButtons from './CommentVoteButtons'
 import MyButton from '../../util/MyButton';
+import { setCommentResponse } from '../../redux/actions/dataActions';
+
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -40,6 +42,8 @@ const styles = (theme) => ({
 })
 
 function Comment(props) {
+    const dispatch = useDispatch()
+
     const {
         user: {
             authenticated,
@@ -60,6 +64,13 @@ function Comment(props) {
     } = props
 
     dayjs.extend(relativeTime)
+
+    function setResponseId(){
+        //set id to the comment selected for response
+        dispatch(setCommentResponse(argumentId)) 
+        console.log("responding to comment id: "+ argumentId)
+        window.scrollTo(0, 0)
+    }
 
     return (
         <Grid item sm={12}>
@@ -87,7 +98,7 @@ function Comment(props) {
                             </Grid>
                             <Grid item sm={1} className={classes.replyButton}>
                                 {authenticated ? (
-                                    <MyButton tip="Reply">
+                                    <MyButton tip="Reply" onClick={setResponseId}>
                                         <ReplyIcon color="primary" />
                                     </MyButton>
                                     ) : (
