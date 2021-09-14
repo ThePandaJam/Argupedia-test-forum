@@ -49,7 +49,7 @@ function Navbar(props) {
                             </MyButton>
                         </Link>
                         
-                        <Link to="/">
+                        <Link to="/ArgupediaLearn">
                             <MyButton tip="Learn">
                                 <ImportContactsIcon/>
                             </MyButton>
@@ -57,7 +57,7 @@ function Navbar(props) {
                         <Notifications/>
                     </Fragment>)
                     : (<Fragment>
-                        <Button color="inherit" component={Link} to="/">Learn</Button>
+                        <Button color="inherit" component={Link} to="/ArgupediaLearn">Learn</Button>
                         <Button color="inherit" component={Link} to="/login">Login</Button>
                         <Button color="inherit" component={Link} to="/signup">Signup</Button>
                     </Fragment>)
