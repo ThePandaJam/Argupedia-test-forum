@@ -167,6 +167,7 @@ function CommentForm(props) {
                 + "\n\nMinor Premise: " + minPremise + "\n\nConclusion: " + conc
             const commentData = {
                 schemeId: schemeId,
+                respondingTo: respondingToId,
                 questionNo: questionId,
                 body: compoundBody
             }
