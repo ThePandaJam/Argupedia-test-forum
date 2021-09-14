@@ -76,7 +76,7 @@ export default function Notifications(props) {
                         component={Link}
                         color="inherit"
                         variant="body1"
-                        to={`/users/${notif.recipient}/post/${notif.postId}`}
+                        to={`/posts/${notif.postId}`}
                         >
                             {notif.sender} {verb} {time}
                         </Typography>
