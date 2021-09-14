@@ -183,7 +183,6 @@ function CommentForm(props) {
     function resetResponseId(){
         //set id to the comment selected for response
         dispatch(setCommentResponse("Original-post")) 
-        console.log("responding to comment id: "+ "Original-post")
     }
 
     return (

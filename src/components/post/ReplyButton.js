@@ -15,7 +15,6 @@ export default function ReplyButton(props) {
     function setResponseId(){
         //set id to the comment selected for response
         dispatch(setCommentResponse(responseId)) 
-        console.log("responding to comment id: "+ responseId)
         window.scrollTo(0, 0)
     }
 

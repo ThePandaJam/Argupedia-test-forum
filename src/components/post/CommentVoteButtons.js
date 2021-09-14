@@ -52,7 +52,6 @@ export default function CommentVoteButtons(props) {
         }
         //add upvote in the db
         dispatch(upvoteArgument(argumentId))
-        console.log("Argument upvoted")
         //add upvote in the ui
         setUpvoted(true)
     }
@@ -61,7 +60,6 @@ export default function CommentVoteButtons(props) {
     function unUpvoteThisArgument(){
         //remove upvote in the db
         dispatch(unUpvoteArgument(argumentId))
-        console.log("Argument un-upvoted")
         //remove upvote in the ui
         setUpvoted(false)
     }
@@ -75,7 +73,6 @@ export default function CommentVoteButtons(props) {
         }
         //add downvote in the db
         dispatch(downvoteArgument(argumentId))
-        console.log("Argument downvoted")
         //add downvote in the ui
         setDownvoted(true)
     }
@@ -84,7 +81,6 @@ export default function CommentVoteButtons(props) {
     function unDownvoteThisArgument(){
         //remove downvote in the db
         dispatch(unDownvoteArgument(argumentId))
-        console.log("Argument un-downvoted")
         //remove downvote in the UI
         setDownvoted(false)
     }

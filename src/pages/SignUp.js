@@ -54,7 +54,6 @@ function SignUp(props) {
             passwordConfirm: userPasswordConfirm,
             handle: userHandle
         }
-        console.log("form submitted");
         dispatch(signupUser(newUserData, history));
     }
     

@@ -83,7 +83,6 @@ function EditDetails(props) {
             website: website,
             location: location
         }
-        console.log("details updated");
         dispatch(editUserDetails(userDetails));
         handleClose();
     }
