@@ -289,7 +289,7 @@ function ArgupediaLearn(props) {
                             How are labels calculated?
                         </Typography>
                         <Typography variant="body1">
-                            Argupedia uses a labelling algorithm for <b>preferred semantics</b>.
+                            Argupedia uses a labelling algorithm for <b>grounded semantics</b>.
                             <br/><br/>
                             This means that the algorigm accept a legal labelling that maximises
                             the number of arguments that are labelled IN (which also minimises UNDEC arguments)
